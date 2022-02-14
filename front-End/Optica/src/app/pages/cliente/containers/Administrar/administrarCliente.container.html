@@ -1,0 +1,11 @@
+<app-layout>
+    <mat-toolbar class="page-header" role="heading">
+      <h1>Tables</h1>
+    </mat-toolbar>
+
+    <div class="tables-wrapper">
+      <app-administrar-clientes [employeeTableData]="employeeTableData$ | async"></app-administrar-clientes>
+    </div>
+    <app-footer></app-footer>
+  </app-layout>
+  
