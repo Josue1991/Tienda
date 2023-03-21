@@ -1,10 +1,6 @@
 ﻿using BusinessEntity;
 using BusinessService1.impl;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace WebApi.Controllers
@@ -30,6 +26,7 @@ namespace WebApi.Controllers
         {
             return _clienteService.ingresarCliente(nuevo);
         }
+        //Cambiar Controlador para que reciba una entidad y no tantos parametros
 
         [Route("editarCliente")]
         [HttpPost]
