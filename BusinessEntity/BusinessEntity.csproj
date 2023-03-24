@@ -46,6 +46,8 @@
     <Compile Include="EstadoEntity.cs" />
     <Compile Include="FacturasEntity.cs" />
     <Compile Include="FormaPagoEntity.cs" />
+    <Compile Include="InventarioEntity.cs" />
+    <Compile Include="ListaProductos.cs" />
     <Compile Include="ProductoEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

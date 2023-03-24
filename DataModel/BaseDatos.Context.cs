@@ -27,9 +27,13 @@ namespace DataModel
     
         public DbSet<CLIENTE> CLIENTE { get; set; }
         public DbSet<DETALLE_FACTURA> DETALLE_FACTURA { get; set; }
+        public DbSet<EMPLEADO> EMPLEADO { get; set; }
         public DbSet<ESTADO> ESTADO { get; set; }
         public DbSet<FACTURA> FACTURA { get; set; }
         public DbSet<FORMAPAGO> FORMAPAGO { get; set; }
+        public DbSet<INVENTARIO> INVENTARIO { get; set; }
         public DbSet<PRODUCTOS> PRODUCTOS { get; set; }
+        public DbSet<UNIDADES> UNIDADES { get; set; }
+        public DbSet<USUARIOS> USUARIOS { get; set; }
     }
 }

@@ -12,20 +12,21 @@ namespace DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class FACTURA
+    public partial class USUARIOS
     {
-        public int ID_FACTURA { get; set; }
-        public Nullable<int> ID_CLIENTE { get; set; }
-        public Nullable<int> ID_DETALLE { get; set; }
-        public Nullable<int> ID_ESTADO { get; set; }
-        public Nullable<System.DateTime> FECHA_FACTURA { get; set; }
-        public Nullable<decimal> SUB_TOTAL { get; set; }
-        public Nullable<decimal> TOTAL { get; set; }
-        public Nullable<decimal> SUB_TOTAL_IVA { get; set; }
-        public Nullable<int> ESTADO_FACTURA { get; set; }
+        public USUARIOS()
+        {
+            this.CLIENTE = new HashSet<CLIENTE>();
+        }
     
-        public virtual CLIENTE CLIENTE { get; set; }
-        public virtual DETALLE_FACTURA DETALLE_FACTURA { get; set; }
+        public int ID_USUARIO { get; set; }
+        public Nullable<int> COD_EMPLEADO { get; set; }
+        public Nullable<int> ID_ESTADO { get; set; }
+        public string CONTRASENA { get; set; }
+        public string EMAIL { get; set; }
+    
+        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
+        public virtual EMPLEADO EMPLEADO { get; set; }
         public virtual ESTADO ESTADO { get; set; }
     }
 }

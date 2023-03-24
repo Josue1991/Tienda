@@ -69,6 +69,9 @@
     <Compile Include="DETALLE_FACTURA.cs">
       <DependentUpon>BaseDatos.tt</DependentUpon>
     </Compile>
+    <Compile Include="EMPLEADO.cs">
+      <DependentUpon>BaseDatos.tt</DependentUpon>
+    </Compile>
     <Compile Include="ESTADO.cs">
       <DependentUpon>BaseDatos.tt</DependentUpon>
     </Compile>
@@ -78,10 +81,19 @@
     <Compile Include="FORMAPAGO.cs">
       <DependentUpon>BaseDatos.tt</DependentUpon>
     </Compile>
+    <Compile Include="INVENTARIO.cs">
+      <DependentUpon>BaseDatos.tt</DependentUpon>
+    </Compile>
     <Compile Include="PRODUCTOS.cs">
       <DependentUpon>BaseDatos.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UNIDADES.cs">
+      <DependentUpon>BaseDatos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USUARIOS.cs">
+      <DependentUpon>BaseDatos.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="BaseDatos.edmx">

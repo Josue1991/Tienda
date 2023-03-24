@@ -9,41 +9,53 @@
           <Key>
             <PropertyRef Name="ID_CLIENTE" />
           </Key>
-          <Property Name="ID_CLIENTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_CLIENTE" Type="int" Nullable="false" />
           <Property Name="ID_FORMAPAGO" Type="int" />
-          <Property Name="CEDULA" Type="varchar(max)" />
-          <Property Name="NOMBRE" Type="varchar(max)" />
-          <Property Name="APELLIDO" Type="varchar(max)" />
-          <Property Name="DIRECCION" Type="varchar(max)" />
+          <Property Name="ID_ESTADO" Type="int" />
+          <Property Name="COD_USUARIO" Type="int" />
+          <Property Name="CEDULA" Type="text" />
+          <Property Name="NOMBRE" Type="text" />
+          <Property Name="APELLIDO" Type="text" />
+          <Property Name="DIRECCION" Type="text" />
           <Property Name="TELEFONO" Type="int" />
-          <Property Name="EMAIL" Type="varchar(max)" />
+          <Property Name="EMAIL" Type="text" />
           <Property Name="ESTADO_CLIENTE" Type="int" />
         </EntityType>
         <EntityType Name="DETALLE_FACTURA">
           <Key>
             <PropertyRef Name="ID_DETALLE" />
           </Key>
-          <Property Name="ID_DETALLE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_DETALLE" Type="int" Nullable="false" />
           <Property Name="ID_PRODUCTO" Type="int" />
-          <Property Name="COD_FACTURA" Type="int" />
+          <Property Name="ID_ESTADO" Type="int" />
           <Property Name="PRECIO_TOTAL" Type="decimal" Precision="18" Scale="0" />
           <Property Name="PRECIO_PRODUCTO" Type="decimal" Precision="18" Scale="0" />
           <Property Name="CANTIDAD_DETALLE" Type="int" />
-          <Property Name="ESTADO_DETALLE" Type="int" />
+        </EntityType>
+        <EntityType Name="EMPLEADO">
+          <Key>
+            <PropertyRef Name="ID_EMPLEADO" />
+          </Key>
+          <Property Name="ID_EMPLEADO" Type="int" Nullable="false" />
+          <Property Name="NOMBRE_EMPLEADO" Type="varchar" MaxLength="20" />
+          <Property Name="APELLIDO_EMPLEADO" Type="varchar" MaxLength="20" />
+          <Property Name="DNI_EMPLEADO" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="ESTADO">
           <Key>
             <PropertyRef Name="ID_ESTADO" />
           </Key>
-          <Property Name="ID_ESTADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DESCRIPCION_ESTADO" Type="varchar(max)" />
+          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+          <Property Name="DESCRIPCION_ESTADO" Type="text" />
         </EntityType>
         <EntityType Name="FACTURA">
           <Key>
-            <PropertyRef Name="COD_FACTURA" />
+            <PropertyRef Name="ID_FACTURA" />
           </Key>
-          <Property Name="COD_FACTURA" Type="int" Nullable="false" />
+          <Property Name="ID_FACTURA" Type="int" Nullable="false" />
           <Property Name="ID_CLIENTE" Type="int" />
+          <Property Name="ID_DETALLE" Type="int" />
+          <Property Name="ID_ESTADO" Type="int" />
           <Property Name="FECHA_FACTURA" Type="datetime" />
           <Property Name="SUB_TOTAL" Type="decimal" Precision="18" Scale="0" />
           <Property Name="TOTAL" Type="decimal" Precision="18" Scale="0" />
@@ -54,28 +66,64 @@
           <Key>
             <PropertyRef Name="ID_FORMAPAGO" />
           </Key>
-          <Property Name="ID_FORMAPAGO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DESCRIPCION_FORMA" Type="varchar(max)" />
+          <Property Name="ID_FORMAPAGO" Type="int" Nullable="false" />
+          <Property Name="DESCRIPCION_FORMA" Type="text" />
           <Property Name="ESTADO_FORMAPAGO" Type="int" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
-        <EntityType Name="Numeros">
-          <Property Name="id" Type="int" />
-          <Property Name="Nombre" Type="varchar" MaxLength="50" />
-          <Property Name="numero" Type="varchar" MaxLength="50" />
-          <Property Name="validar" Type="bit" />
-        </EntityType>-->
+        <EntityType Name="INVENTARIO">
+          <Key>
+            <PropertyRef Name="ID_INVENTARIO" />
+          </Key>
+          <Property Name="ID_INVENTARIO" Type="int" Nullable="false" />
+          <Property Name="ID_PRODUCTO" Type="int" />
+          <Property Name="ID_ESTADO" Type="int" />
+          <Property Name="STOCK_INVENTARIO" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="FECHA_SALIDA" Type="datetime" />
+          <Property Name="FECHA_INGRESO" Type="datetime" />
+          <Property Name="CANTIDAD_SALIDA" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="CANTIDAD_INGRESO" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="PRECIO_UNITARIO" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
         <EntityType Name="PRODUCTOS">
           <Key>
             <PropertyRef Name="ID_PRODUCTO" />
           </Key>
-          <Property Name="ID_PRODUCTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DESCRIPCION_PRODUCTO" Type="varchar(max)" />
-          <Property Name="CANTIDAD_PRODUCTO" Type="int" />
-          <Property Name="PRECIO_UNITARIO" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="ESTADO_PRODUCTO" Type="int" />
+          <Property Name="ID_PRODUCTO" Type="int" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" />
+          <Property Name="ID_UNIDAD" Type="int" />
+          <Property Name="DESCRIPCION_PRODUCTO" Type="text" />
         </EntityType>
+        <EntityType Name="UNIDADES">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD" />
+          </Key>
+          <Property Name="ID_UNIDAD" Type="int" Nullable="false" />
+          <Property Name="DESCRIPCION_UNIDAD" Type="char" MaxLength="20" />
+          <Property Name="ABREVIATURA_UNIDAD" Type="char" MaxLength="4" />
+          <Property Name="EQUIVALENCIA_UNIDAD" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="COD_EMPLEADO" Type="int" />
+          <Property Name="ID_ESTADO" Type="int" />
+          <Property Name="CONTRASENA" Type="varchar" MaxLength="10" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <Association Name="FK_CLIENTE_REFERENCE_ESTADO">
+          <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="0..1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CLIENTE_REFERENCE_FORMAPAG">
           <End Role="FORMAPAGO" Type="Self.FORMAPAGO" Multiplicity="0..1" />
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
@@ -88,15 +136,27 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETALLE__RELATIONS_FACTURA">
-          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="0..1" />
+        <Association Name="FK_CLIENTE_REFERENCE_USUARIOS">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="COD_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__REFERENCE_ESTADO">
+          <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="0..1" />
           <End Role="DETALLE_FACTURA" Type="Self.DETALLE_FACTURA" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="FACTURA">
-              <PropertyRef Name="COD_FACTURA" />
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
             </Principal>
             <Dependent Role="DETALLE_FACTURA">
-              <PropertyRef Name="COD_FACTURA" />
+              <PropertyRef Name="ID_ESTADO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -112,6 +172,18 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FACTURA_REFERENCE_ESTADO">
+          <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="0..1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FACTURA_RELATIONS_CLIENTE">
           <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="0..1" />
           <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
@@ -124,28 +196,156 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FACTURA_RELATIONS_DETALLE_">
+          <End Role="DETALLE_FACTURA" Type="Self.DETALLE_FACTURA" Multiplicity="0..1" />
+          <End Role="FACTURA" Type="Self.FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DETALLE_FACTURA">
+              <PropertyRef Name="ID_DETALLE" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="ID_DETALLE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INVENTAR_REFERENCE_ESTADO">
+          <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="0..1" />
+          <End Role="INVENTARIO" Type="Self.INVENTARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="INVENTARIO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INVENTAR_REFERENCE_PRODUCTO">
+          <End Role="PRODUCTOS" Type="Self.PRODUCTOS" Multiplicity="0..1" />
+          <End Role="INVENTARIO" Type="Self.INVENTARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTOS">
+              <PropertyRef Name="ID_PRODUCTO" />
+            </Principal>
+            <Dependent Role="INVENTARIO">
+              <PropertyRef Name="ID_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_ESTADO">
+          <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="0..1" />
+          <End Role="PRODUCTOS" Type="Self.PRODUCTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="PRODUCTOS">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_UNIDADES">
+          <End Role="UNIDADES" Type="Self.UNIDADES" Multiplicity="0..1" />
+          <End Role="PRODUCTOS" Type="Self.PRODUCTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UNIDADES">
+              <PropertyRef Name="ID_UNIDAD" />
+            </Principal>
+            <Dependent Role="PRODUCTOS">
+              <PropertyRef Name="ID_UNIDAD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIOS_REFERENCE_EMPLEADO">
+          <End Role="EMPLEADO" Type="Self.EMPLEADO" Multiplicity="0..1" />
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLEADO">
+              <PropertyRef Name="ID_EMPLEADO" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="COD_EMPLEADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIOS_REFERENCE_ESTADO">
+          <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="0..1" />
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="base1ModelStoreContainer">
           <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DETALLE_FACTURA" EntityType="Self.DETALLE_FACTURA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLEADO" EntityType="Self.EMPLEADO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ESTADO" EntityType="Self.ESTADO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FACTURA" EntityType="Self.FACTURA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FORMAPAGO" EntityType="Self.FORMAPAGO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INVENTARIO" EntityType="Self.INVENTARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCTOS" EntityType="Self.PRODUCTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UNIDADES" EntityType="Self.UNIDADES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CLIENTE_REFERENCE_ESTADO" Association="Self.FK_CLIENTE_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
           <AssociationSet Name="FK_CLIENTE_REFERENCE_FORMAPAG" Association="Self.FK_CLIENTE_REFERENCE_FORMAPAG">
             <End Role="FORMAPAGO" EntitySet="FORMAPAGO" />
             <End Role="CLIENTE" EntitySet="CLIENTE" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETALLE__RELATIONS_FACTURA" Association="Self.FK_DETALLE__RELATIONS_FACTURA">
-            <End Role="FACTURA" EntitySet="FACTURA" />
+          <AssociationSet Name="FK_CLIENTE_REFERENCE_USUARIOS" Association="Self.FK_CLIENTE_REFERENCE_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__REFERENCE_ESTADO" Association="Self.FK_DETALLE__REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
             <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
           </AssociationSet>
           <AssociationSet Name="FK_DETALLE__RELATIONS_PRODUCTO" Association="Self.FK_DETALLE__RELATIONS_PRODUCTO">
             <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
             <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
           </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_REFERENCE_ESTADO" Association="Self.FK_FACTURA_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
           <AssociationSet Name="FK_FACTURA_RELATIONS_CLIENTE" Association="Self.FK_FACTURA_RELATIONS_CLIENTE">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
             <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_RELATIONS_DETALLE_" Association="Self.FK_FACTURA_RELATIONS_DETALLE_">
+            <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INVENTAR_REFERENCE_ESTADO" Association="Self.FK_INVENTAR_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="INVENTARIO" EntitySet="INVENTARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INVENTAR_REFERENCE_PRODUCTO" Association="Self.FK_INVENTAR_REFERENCE_PRODUCTO">
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+            <End Role="INVENTARIO" EntitySet="INVENTARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_ESTADO" Association="Self.FK_PRODUCTO_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_UNIDADES" Association="Self.FK_PRODUCTO_REFERENCE_UNIDADES">
+            <End Role="UNIDADES" EntitySet="UNIDADES" />
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIOS_REFERENCE_EMPLEADO" Association="Self.FK_USUARIOS_REFERENCE_EMPLEADO">
+            <End Role="EMPLEADO" EntitySet="EMPLEADO" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIOS_REFERENCE_ESTADO" Association="Self.FK_USUARIOS_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -155,33 +355,79 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
         <EntityContainer Name="base1Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CLIENTE" EntityType="base1Model.CLIENTE" />
           <EntitySet Name="DETALLE_FACTURA" EntityType="base1Model.DETALLE_FACTURA" />
+          <EntitySet Name="EMPLEADO" EntityType="base1Model.EMPLEADO" />
           <EntitySet Name="ESTADO" EntityType="base1Model.ESTADO" />
           <EntitySet Name="FACTURA" EntityType="base1Model.FACTURA" />
           <EntitySet Name="FORMAPAGO" EntityType="base1Model.FORMAPAGO" />
+          <EntitySet Name="INVENTARIO" EntityType="base1Model.INVENTARIO" />
           <EntitySet Name="PRODUCTOS" EntityType="base1Model.PRODUCTOS" />
+          <EntitySet Name="UNIDADES" EntityType="base1Model.UNIDADES" />
+          <EntitySet Name="USUARIOS" EntityType="base1Model.USUARIOS" />
+          <AssociationSet Name="FK_CLIENTE_REFERENCE_ESTADO" Association="base1Model.FK_CLIENTE_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
           <AssociationSet Name="FK_CLIENTE_REFERENCE_FORMAPAG" Association="base1Model.FK_CLIENTE_REFERENCE_FORMAPAG">
             <End Role="FORMAPAGO" EntitySet="FORMAPAGO" />
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CLIENTE_REFERENCE_USUARIOS" Association="base1Model.FK_CLIENTE_REFERENCE_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
             <End Role="CLIENTE" EntitySet="CLIENTE" />
           </AssociationSet>
           <AssociationSet Name="FK_FACTURA_RELATIONS_CLIENTE" Association="base1Model.FK_FACTURA_RELATIONS_CLIENTE">
             <End Role="CLIENTE" EntitySet="CLIENTE" />
             <End Role="FACTURA" EntitySet="FACTURA" />
           </AssociationSet>
-          <AssociationSet Name="FK_DETALLE__RELATIONS_FACTURA" Association="base1Model.FK_DETALLE__RELATIONS_FACTURA">
-            <End Role="FACTURA" EntitySet="FACTURA" />
+          <AssociationSet Name="FK_DETALLE__REFERENCE_ESTADO" Association="base1Model.FK_DETALLE__REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
             <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
           </AssociationSet>
           <AssociationSet Name="FK_DETALLE__RELATIONS_PRODUCTO" Association="base1Model.FK_DETALLE__RELATIONS_PRODUCTO">
             <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
             <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
           </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_RELATIONS_DETALLE_" Association="base1Model.FK_FACTURA_RELATIONS_DETALLE_">
+            <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIOS_REFERENCE_EMPLEADO" Association="base1Model.FK_USUARIOS_REFERENCE_EMPLEADO">
+            <End Role="EMPLEADO" EntitySet="EMPLEADO" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FACTURA_REFERENCE_ESTADO" Association="base1Model.FK_FACTURA_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="FACTURA" EntitySet="FACTURA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INVENTAR_REFERENCE_ESTADO" Association="base1Model.FK_INVENTAR_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="INVENTARIO" EntitySet="INVENTARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_ESTADO" Association="base1Model.FK_PRODUCTO_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIOS_REFERENCE_ESTADO" Association="base1Model.FK_USUARIOS_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_INVENTAR_REFERENCE_PRODUCTO" Association="base1Model.FK_INVENTAR_REFERENCE_PRODUCTO">
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+            <End Role="INVENTARIO" EntitySet="INVENTARIO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUCTO_REFERENCE_UNIDADES" Association="base1Model.FK_PRODUCTO_REFERENCE_UNIDADES">
+            <End Role="UNIDADES" EntitySet="UNIDADES" />
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CLIENTE">
           <Key>
             <PropertyRef Name="ID_CLIENTE" />
           </Key>
-          <Property Name="ID_CLIENTE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CLIENTE" Type="Int32" Nullable="false" />
           <Property Name="ID_FORMAPAGO" Type="Int32" />
+          <Property Name="ID_ESTADO" Type="Int32" />
+          <Property Name="COD_USUARIO" Type="Int32" />
           <Property Name="CEDULA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="NOMBRE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="APELLIDO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
@@ -189,64 +435,138 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
           <Property Name="TELEFONO" Type="Int32" />
           <Property Name="EMAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ESTADO_CLIENTE" Type="Int32" />
+          <NavigationProperty Name="ESTADO" Relationship="base1Model.FK_CLIENTE_REFERENCE_ESTADO" FromRole="CLIENTE" ToRole="ESTADO" />
           <NavigationProperty Name="FORMAPAGO" Relationship="base1Model.FK_CLIENTE_REFERENCE_FORMAPAG" FromRole="CLIENTE" ToRole="FORMAPAGO" />
+          <NavigationProperty Name="USUARIOS" Relationship="base1Model.FK_CLIENTE_REFERENCE_USUARIOS" FromRole="CLIENTE" ToRole="USUARIOS" />
           <NavigationProperty Name="FACTURA" Relationship="base1Model.FK_FACTURA_RELATIONS_CLIENTE" FromRole="CLIENTE" ToRole="FACTURA" />
         </EntityType>
         <EntityType Name="DETALLE_FACTURA">
           <Key>
             <PropertyRef Name="ID_DETALLE" />
           </Key>
-          <Property Name="ID_DETALLE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_DETALLE" Type="Int32" Nullable="false" />
           <Property Name="ID_PRODUCTO" Type="Int32" />
-          <Property Name="COD_FACTURA" Type="Int32" />
+          <Property Name="ID_ESTADO" Type="Int32" />
           <Property Name="PRECIO_TOTAL" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="PRECIO_PRODUCTO" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="CANTIDAD_DETALLE" Type="Int32" />
-          <Property Name="ESTADO_DETALLE" Type="Int32" />
-          <NavigationProperty Name="FACTURA" Relationship="base1Model.FK_DETALLE__RELATIONS_FACTURA" FromRole="DETALLE_FACTURA" ToRole="FACTURA" />
+          <NavigationProperty Name="ESTADO" Relationship="base1Model.FK_DETALLE__REFERENCE_ESTADO" FromRole="DETALLE_FACTURA" ToRole="ESTADO" />
           <NavigationProperty Name="PRODUCTOS" Relationship="base1Model.FK_DETALLE__RELATIONS_PRODUCTO" FromRole="DETALLE_FACTURA" ToRole="PRODUCTOS" />
+          <NavigationProperty Name="FACTURA" Relationship="base1Model.FK_FACTURA_RELATIONS_DETALLE_" FromRole="DETALLE_FACTURA" ToRole="FACTURA" />
+        </EntityType>
+        <EntityType Name="EMPLEADO">
+          <Key>
+            <PropertyRef Name="ID_EMPLEADO" />
+          </Key>
+          <Property Name="ID_EMPLEADO" Type="Int32" Nullable="false" />
+          <Property Name="NOMBRE_EMPLEADO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDO_EMPLEADO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DNI_EMPLEADO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="USUARIOS" Relationship="base1Model.FK_USUARIOS_REFERENCE_EMPLEADO" FromRole="EMPLEADO" ToRole="USUARIOS" />
         </EntityType>
         <EntityType Name="ESTADO">
           <Key>
             <PropertyRef Name="ID_ESTADO" />
           </Key>
-          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" />
           <Property Name="DESCRIPCION_ESTADO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="base1Model.FK_CLIENTE_REFERENCE_ESTADO" FromRole="ESTADO" ToRole="CLIENTE" />
+          <NavigationProperty Name="DETALLE_FACTURA" Relationship="base1Model.FK_DETALLE__REFERENCE_ESTADO" FromRole="ESTADO" ToRole="DETALLE_FACTURA" />
+          <NavigationProperty Name="FACTURA" Relationship="base1Model.FK_FACTURA_REFERENCE_ESTADO" FromRole="ESTADO" ToRole="FACTURA" />
+          <NavigationProperty Name="INVENTARIO" Relationship="base1Model.FK_INVENTAR_REFERENCE_ESTADO" FromRole="ESTADO" ToRole="INVENTARIO" />
+          <NavigationProperty Name="PRODUCTOS" Relationship="base1Model.FK_PRODUCTO_REFERENCE_ESTADO" FromRole="ESTADO" ToRole="PRODUCTOS" />
+          <NavigationProperty Name="USUARIOS" Relationship="base1Model.FK_USUARIOS_REFERENCE_ESTADO" FromRole="ESTADO" ToRole="USUARIOS" />
         </EntityType>
         <EntityType Name="FACTURA">
           <Key>
-            <PropertyRef Name="COD_FACTURA" />
+            <PropertyRef Name="ID_FACTURA" />
           </Key>
-          <Property Name="COD_FACTURA" Type="Int32" Nullable="false" />
+          <Property Name="ID_FACTURA" Type="Int32" Nullable="false" />
           <Property Name="ID_CLIENTE" Type="Int32" />
+          <Property Name="ID_DETALLE" Type="Int32" />
+          <Property Name="ID_ESTADO" Type="Int32" />
           <Property Name="FECHA_FACTURA" Type="DateTime" Precision="3" />
           <Property Name="SUB_TOTAL" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="TOTAL" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="SUB_TOTAL_IVA" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="ESTADO_FACTURA" Type="Int32" />
           <NavigationProperty Name="CLIENTE" Relationship="base1Model.FK_FACTURA_RELATIONS_CLIENTE" FromRole="FACTURA" ToRole="CLIENTE" />
-          <NavigationProperty Name="DETALLE_FACTURA" Relationship="base1Model.FK_DETALLE__RELATIONS_FACTURA" FromRole="FACTURA" ToRole="DETALLE_FACTURA" />
+          <NavigationProperty Name="DETALLE_FACTURA" Relationship="base1Model.FK_FACTURA_RELATIONS_DETALLE_" FromRole="FACTURA" ToRole="DETALLE_FACTURA" />
+          <NavigationProperty Name="ESTADO" Relationship="base1Model.FK_FACTURA_REFERENCE_ESTADO" FromRole="FACTURA" ToRole="ESTADO" />
         </EntityType>
         <EntityType Name="FORMAPAGO">
           <Key>
             <PropertyRef Name="ID_FORMAPAGO" />
           </Key>
-          <Property Name="ID_FORMAPAGO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_FORMAPAGO" Type="Int32" Nullable="false" />
           <Property Name="DESCRIPCION_FORMA" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ESTADO_FORMAPAGO" Type="Int32" />
           <NavigationProperty Name="CLIENTE" Relationship="base1Model.FK_CLIENTE_REFERENCE_FORMAPAG" FromRole="FORMAPAGO" ToRole="CLIENTE" />
+        </EntityType>
+        <EntityType Name="INVENTARIO">
+          <Key>
+            <PropertyRef Name="ID_INVENTARIO" />
+          </Key>
+          <Property Name="ID_INVENTARIO" Type="Int32" Nullable="false" />
+          <Property Name="ID_PRODUCTO" Type="Int32" />
+          <Property Name="ID_ESTADO" Type="Int32" />
+          <Property Name="STOCK_INVENTARIO" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="FECHA_SALIDA" Type="DateTime" Precision="3" />
+          <Property Name="FECHA_INGRESO" Type="DateTime" Precision="3" />
+          <Property Name="CANTIDAD_SALIDA" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CANTIDAD_INGRESO" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="PRECIO_UNITARIO" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="ESTADO" Relationship="base1Model.FK_INVENTAR_REFERENCE_ESTADO" FromRole="INVENTARIO" ToRole="ESTADO" />
+          <NavigationProperty Name="PRODUCTOS" Relationship="base1Model.FK_INVENTAR_REFERENCE_PRODUCTO" FromRole="INVENTARIO" ToRole="PRODUCTOS" />
         </EntityType>
         <EntityType Name="PRODUCTOS">
           <Key>
             <PropertyRef Name="ID_PRODUCTO" />
           </Key>
-          <Property Name="ID_PRODUCTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_PRODUCTO" Type="Int32" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="Int32" />
+          <Property Name="ID_UNIDAD" Type="Int32" />
           <Property Name="DESCRIPCION_PRODUCTO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CANTIDAD_PRODUCTO" Type="Int32" />
-          <Property Name="PRECIO_UNITARIO" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ESTADO_PRODUCTO" Type="Int32" />
           <NavigationProperty Name="DETALLE_FACTURA" Relationship="base1Model.FK_DETALLE__RELATIONS_PRODUCTO" FromRole="PRODUCTOS" ToRole="DETALLE_FACTURA" />
+          <NavigationProperty Name="ESTADO" Relationship="base1Model.FK_PRODUCTO_REFERENCE_ESTADO" FromRole="PRODUCTOS" ToRole="ESTADO" />
+          <NavigationProperty Name="INVENTARIO" Relationship="base1Model.FK_INVENTAR_REFERENCE_PRODUCTO" FromRole="PRODUCTOS" ToRole="INVENTARIO" />
+          <NavigationProperty Name="UNIDADES" Relationship="base1Model.FK_PRODUCTO_REFERENCE_UNIDADES" FromRole="PRODUCTOS" ToRole="UNIDADES" />
         </EntityType>
+        <EntityType Name="UNIDADES">
+          <Key>
+            <PropertyRef Name="ID_UNIDAD" />
+          </Key>
+          <Property Name="ID_UNIDAD" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPCION_UNIDAD" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+          <Property Name="ABREVIATURA_UNIDAD" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="EQUIVALENCIA_UNIDAD" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="PRODUCTOS" Relationship="base1Model.FK_PRODUCTO_REFERENCE_UNIDADES" FromRole="UNIDADES" ToRole="PRODUCTOS" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="ID_USUARIO" />
+          </Key>
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
+          <Property Name="COD_EMPLEADO" Type="Int32" />
+          <Property Name="ID_ESTADO" Type="Int32" />
+          <Property Name="CONTRASENA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CLIENTE" Relationship="base1Model.FK_CLIENTE_REFERENCE_USUARIOS" FromRole="USUARIOS" ToRole="CLIENTE" />
+          <NavigationProperty Name="EMPLEADO" Relationship="base1Model.FK_USUARIOS_REFERENCE_EMPLEADO" FromRole="USUARIOS" ToRole="EMPLEADO" />
+          <NavigationProperty Name="ESTADO" Relationship="base1Model.FK_USUARIOS_REFERENCE_ESTADO" FromRole="USUARIOS" ToRole="ESTADO" />
+        </EntityType>
+        <Association Name="FK_CLIENTE_REFERENCE_ESTADO">
+          <End Type="base1Model.ESTADO" Role="ESTADO" Multiplicity="0..1" />
+          <End Type="base1Model.CLIENTE" Role="CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CLIENTE_REFERENCE_FORMAPAG">
           <End Type="base1Model.FORMAPAGO" Role="FORMAPAGO" Multiplicity="0..1" />
           <End Type="base1Model.CLIENTE" Role="CLIENTE" Multiplicity="*" />
@@ -256,6 +576,18 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
             </Principal>
             <Dependent Role="CLIENTE">
               <PropertyRef Name="ID_FORMAPAGO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CLIENTE_REFERENCE_USUARIOS">
+          <End Type="base1Model.USUARIOS" Role="USUARIOS" Multiplicity="0..1" />
+          <End Type="base1Model.CLIENTE" Role="CLIENTE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="ID_USUARIO" />
+            </Principal>
+            <Dependent Role="CLIENTE">
+              <PropertyRef Name="COD_USUARIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -271,15 +603,15 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DETALLE__RELATIONS_FACTURA">
-          <End Type="base1Model.FACTURA" Role="FACTURA" Multiplicity="0..1" />
+        <Association Name="FK_DETALLE__REFERENCE_ESTADO">
+          <End Type="base1Model.ESTADO" Role="ESTADO" Multiplicity="0..1" />
           <End Type="base1Model.DETALLE_FACTURA" Role="DETALLE_FACTURA" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="FACTURA">
-              <PropertyRef Name="COD_FACTURA" />
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
             </Principal>
             <Dependent Role="DETALLE_FACTURA">
-              <PropertyRef Name="COD_FACTURA" />
+              <PropertyRef Name="ID_ESTADO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -292,6 +624,102 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
             </Principal>
             <Dependent Role="DETALLE_FACTURA">
               <PropertyRef Name="ID_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_RELATIONS_DETALLE_">
+          <End Type="base1Model.DETALLE_FACTURA" Role="DETALLE_FACTURA" Multiplicity="0..1" />
+          <End Type="base1Model.FACTURA" Role="FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DETALLE_FACTURA">
+              <PropertyRef Name="ID_DETALLE" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="ID_DETALLE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIOS_REFERENCE_EMPLEADO">
+          <End Type="base1Model.EMPLEADO" Role="EMPLEADO" Multiplicity="0..1" />
+          <End Type="base1Model.USUARIOS" Role="USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EMPLEADO">
+              <PropertyRef Name="ID_EMPLEADO" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="COD_EMPLEADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FACTURA_REFERENCE_ESTADO">
+          <End Type="base1Model.ESTADO" Role="ESTADO" Multiplicity="0..1" />
+          <End Type="base1Model.FACTURA" Role="FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="FACTURA">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INVENTAR_REFERENCE_ESTADO">
+          <End Type="base1Model.ESTADO" Role="ESTADO" Multiplicity="0..1" />
+          <End Type="base1Model.INVENTARIO" Role="INVENTARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="INVENTARIO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_ESTADO">
+          <End Type="base1Model.ESTADO" Role="ESTADO" Multiplicity="0..1" />
+          <End Type="base1Model.PRODUCTOS" Role="PRODUCTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="PRODUCTOS">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIOS_REFERENCE_ESTADO">
+          <End Type="base1Model.ESTADO" Role="ESTADO" Multiplicity="0..1" />
+          <End Type="base1Model.USUARIOS" Role="USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_INVENTAR_REFERENCE_PRODUCTO">
+          <End Type="base1Model.PRODUCTOS" Role="PRODUCTOS" Multiplicity="0..1" />
+          <End Type="base1Model.INVENTARIO" Role="INVENTARIO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTOS">
+              <PropertyRef Name="ID_PRODUCTO" />
+            </Principal>
+            <Dependent Role="INVENTARIO">
+              <PropertyRef Name="ID_PRODUCTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUCTO_REFERENCE_UNIDADES">
+          <End Type="base1Model.UNIDADES" Role="UNIDADES" Multiplicity="0..1" />
+          <End Type="base1Model.PRODUCTOS" Role="PRODUCTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UNIDADES">
+              <PropertyRef Name="ID_UNIDAD" />
+            </Principal>
+            <Dependent Role="PRODUCTOS">
+              <PropertyRef Name="ID_UNIDAD" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -311,6 +739,8 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
                 <ScalarProperty Name="APELLIDO" ColumnName="APELLIDO" />
                 <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
                 <ScalarProperty Name="CEDULA" ColumnName="CEDULA" />
+                <ScalarProperty Name="COD_USUARIO" ColumnName="COD_USUARIO" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
                 <ScalarProperty Name="ID_FORMAPAGO" ColumnName="ID_FORMAPAGO" />
                 <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
               </MappingFragment>
@@ -319,13 +749,22 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
           <EntitySetMapping Name="DETALLE_FACTURA">
             <EntityTypeMapping TypeName="base1Model.DETALLE_FACTURA">
               <MappingFragment StoreEntitySet="DETALLE_FACTURA">
-                <ScalarProperty Name="ESTADO_DETALLE" ColumnName="ESTADO_DETALLE" />
                 <ScalarProperty Name="CANTIDAD_DETALLE" ColumnName="CANTIDAD_DETALLE" />
                 <ScalarProperty Name="PRECIO_PRODUCTO" ColumnName="PRECIO_PRODUCTO" />
                 <ScalarProperty Name="PRECIO_TOTAL" ColumnName="PRECIO_TOTAL" />
-                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
                 <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
                 <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLEADO">
+            <EntityTypeMapping TypeName="base1Model.EMPLEADO">
+              <MappingFragment StoreEntitySet="EMPLEADO">
+                <ScalarProperty Name="DNI_EMPLEADO" ColumnName="DNI_EMPLEADO" />
+                <ScalarProperty Name="APELLIDO_EMPLEADO" ColumnName="APELLIDO_EMPLEADO" />
+                <ScalarProperty Name="NOMBRE_EMPLEADO" ColumnName="NOMBRE_EMPLEADO" />
+                <ScalarProperty Name="ID_EMPLEADO" ColumnName="ID_EMPLEADO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -345,8 +784,10 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
                 <ScalarProperty Name="TOTAL" ColumnName="TOTAL" />
                 <ScalarProperty Name="SUB_TOTAL" ColumnName="SUB_TOTAL" />
                 <ScalarProperty Name="FECHA_FACTURA" ColumnName="FECHA_FACTURA" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
                 <ScalarProperty Name="ID_CLIENTE" ColumnName="ID_CLIENTE" />
-                <ScalarProperty Name="COD_FACTURA" ColumnName="COD_FACTURA" />
+                <ScalarProperty Name="ID_FACTURA" ColumnName="ID_FACTURA" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -359,14 +800,49 @@ advertencia 6013: La tabla o vista 'base1.dbo.Numeros' no tiene definida una cla
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="INVENTARIO">
+            <EntityTypeMapping TypeName="base1Model.INVENTARIO">
+              <MappingFragment StoreEntitySet="INVENTARIO">
+                <ScalarProperty Name="PRECIO_UNITARIO" ColumnName="PRECIO_UNITARIO" />
+                <ScalarProperty Name="CANTIDAD_INGRESO" ColumnName="CANTIDAD_INGRESO" />
+                <ScalarProperty Name="CANTIDAD_SALIDA" ColumnName="CANTIDAD_SALIDA" />
+                <ScalarProperty Name="FECHA_INGRESO" ColumnName="FECHA_INGRESO" />
+                <ScalarProperty Name="FECHA_SALIDA" ColumnName="FECHA_SALIDA" />
+                <ScalarProperty Name="STOCK_INVENTARIO" ColumnName="STOCK_INVENTARIO" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
+                <ScalarProperty Name="ID_INVENTARIO" ColumnName="ID_INVENTARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="PRODUCTOS">
             <EntityTypeMapping TypeName="base1Model.PRODUCTOS">
               <MappingFragment StoreEntitySet="PRODUCTOS">
-                <ScalarProperty Name="ESTADO_PRODUCTO" ColumnName="ESTADO_PRODUCTO" />
-                <ScalarProperty Name="PRECIO_UNITARIO" ColumnName="PRECIO_UNITARIO" />
-                <ScalarProperty Name="CANTIDAD_PRODUCTO" ColumnName="CANTIDAD_PRODUCTO" />
                 <ScalarProperty Name="DESCRIPCION_PRODUCTO" ColumnName="DESCRIPCION_PRODUCTO" />
+                <ScalarProperty Name="ID_UNIDAD" ColumnName="ID_UNIDAD" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
                 <ScalarProperty Name="ID_PRODUCTO" ColumnName="ID_PRODUCTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UNIDADES">
+            <EntityTypeMapping TypeName="base1Model.UNIDADES">
+              <MappingFragment StoreEntitySet="UNIDADES">
+                <ScalarProperty Name="EQUIVALENCIA_UNIDAD" ColumnName="EQUIVALENCIA_UNIDAD" />
+                <ScalarProperty Name="ABREVIATURA_UNIDAD" ColumnName="ABREVIATURA_UNIDAD" />
+                <ScalarProperty Name="DESCRIPCION_UNIDAD" ColumnName="DESCRIPCION_UNIDAD" />
+                <ScalarProperty Name="ID_UNIDAD" ColumnName="ID_UNIDAD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIOS">
+            <EntityTypeMapping TypeName="base1Model.USUARIOS">
+              <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
+                <ScalarProperty Name="COD_EMPLEADO" ColumnName="COD_EMPLEADO" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -14,7 +14,24 @@ namespace DataModel
     
     public partial class ESTADO
     {
+        public ESTADO()
+        {
+            this.CLIENTE = new HashSet<CLIENTE>();
+            this.DETALLE_FACTURA = new HashSet<DETALLE_FACTURA>();
+            this.FACTURA = new HashSet<FACTURA>();
+            this.INVENTARIO = new HashSet<INVENTARIO>();
+            this.PRODUCTOS = new HashSet<PRODUCTOS>();
+            this.USUARIOS = new HashSet<USUARIOS>();
+        }
+    
         public int ID_ESTADO { get; set; }
         public string DESCRIPCION_ESTADO { get; set; }
+    
+        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
+        public virtual ICollection<DETALLE_FACTURA> DETALLE_FACTURA { get; set; }
+        public virtual ICollection<FACTURA> FACTURA { get; set; }
+        public virtual ICollection<INVENTARIO> INVENTARIO { get; set; }
+        public virtual ICollection<PRODUCTOS> PRODUCTOS { get; set; }
+        public virtual ICollection<USUARIOS> USUARIOS { get; set; }
     }
 }

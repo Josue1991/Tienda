@@ -19,15 +19,15 @@ namespace WebApi.Controllers
         }
         [Route("listar")]
         [HttpGet]
-        public List<ProductoEntity> listar()
+        public List<ListaProductos> listar()
         {
             return _productoService.listaProductos();
         }
         [Route("ingresarProducto")]
         [HttpPost]
-        public bool ingresarProducto([FromBody] ProductoEntity nuevo)
+        public bool ingresarProducto([FromBody] ProductoEntity nuevo, [FromBody] InventarioEntity inventario)
         {
-            return _productoService.ingresarProducto(nuevo);
+            return _productoService.ingresarProducto(nuevo,inventario);
         }
 
         [Route("editarProducto")]

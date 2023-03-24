@@ -9,9 +9,9 @@ namespace BusinessService1.impl
 {
     public interface IProductoService
     {
-        List<ProductoEntity> listaProductos();
-        ProductoEntity obtenerProducto(int codigo);
-        bool ingresarProducto(ProductoEntity objeto);
+        List<ListaProductos> listaProductos();
+        List<ListaProductos> obtenerProducto(int codigo);
+        bool ingresarProducto(ProductoEntity objeto, InventarioEntity inventario);
         bool editarProducto(ProductoEntity objeto);
         bool eliminarProducto(ProductoEntity objeto);
     }

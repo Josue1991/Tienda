@@ -12,8 +12,10 @@ namespace BusinessService1
     public class ProductoService : IProductoService
     {
         base1Entities _repositorio;
-        public ProductoService()
+        private readonly FacturaService _facturaService;
+        public ProductoService(FacturaService facturaService)
         {
+            _facturaService = facturaService;
             _repositorio = new base1Entities();
         }
 
@@ -23,12 +25,12 @@ namespace BusinessService1
             using (var db = new base1Entities())
             {
                 var result = db.PRODUCTOS.SingleOrDefault(b => b.ID_PRODUCTO == objeto.ID_PRODUCTO);
+                var inventario = db.INVENTARIO.Where(i => i.ID_PRODUCTO == result.ID_PRODUCTO);
                 var editado = new PRODUCTOS
                 {
                     DESCRIPCION_PRODUCTO = objeto.DESCRIPCION_PRODUCTO,
-                    CANTIDAD_PRODUCTO = objeto.CANTIDAD_PRODUCTO,
-                    PRECIO_UNITARIO = objeto.PRECIO_UNITARIO,
-                    ESTADO_PRODUCTO = objeto.ESTADO_PRODUCTO
+                    ID_ESTADO = objeto.ID_ESTADO,
+                    ID_UNIDAD = objeto.ID_UNIDAD
                 };
                 if (result != null)
                 {
@@ -64,11 +66,12 @@ namespace BusinessService1
                         {
                             var editado = new PRODUCTOS
                             {
-                                ESTADO_PRODUCTO = estado.ID_ESTADO
+                                ID_ESTADO = estado.ID_ESTADO
                             };
                             db.PRODUCTOS.Attach(editado);
                             db.Entry(editado).State = System.Data.EntityState.Deleted;
                             db.SaveChanges();
+                            _facturaService.actualizarStock(objeto.ID_PRODUCTO, 0);
                             retorno = true;
                         }
 
@@ -82,11 +85,12 @@ namespace BusinessService1
             return retorno;
         }
 
-        public bool ingresarProducto(ProductoEntity objeto)
+        public bool ingresarProducto(ProductoEntity objeto, InventarioEntity inventario)
         {
             var retorno = false;
             var elemento = _repositorio.PRODUCTOS.Where(x => x.DESCRIPCION_PRODUCTO.ToLower().Contains(objeto.DESCRIPCION_PRODUCTO.ToLower())).FirstOrDefault();
-
+            var estado = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.ToLower().Contains("ingreso")).FirstOrDefault();
+            var bscInventario = _repositorio.INVENTARIO.Where(x => x.ID_PRODUCTO == objeto.ID_PRODUCTO).FirstOrDefault();
             if (elemento == null)
             {
                 using (var context = new base1Entities())
@@ -95,11 +99,18 @@ namespace BusinessService1
                     {
                         var item = new PRODUCTOS();
                         item.DESCRIPCION_PRODUCTO = objeto.DESCRIPCION_PRODUCTO;
-                        item.CANTIDAD_PRODUCTO = objeto.CANTIDAD_PRODUCTO;
-                        item.PRECIO_UNITARIO = objeto.PRECIO_UNITARIO;
-                        item.ESTADO_PRODUCTO = objeto.ESTADO_PRODUCTO;
+                        item.ID_ESTADO = estado.ID_ESTADO;
+                        item.ID_UNIDAD = _repositorio.UNIDADES.Where(x => x.ID_UNIDAD == objeto.ID_UNIDAD).Select(u => u.ID_UNIDAD).FirstOrDefault();
                         context.PRODUCTOS.Add(item);
                         context.SaveChanges();
+                        if (bscInventario != null)
+                        {
+                            _facturaService.actualizarStock(objeto.ID_PRODUCTO, inventario.CANTIDAD_INGRESO.Value);
+                        }
+                        else
+                        {
+                            _facturaService.comprarStock(objeto.ID_PRODUCTO, inventario.CANTIDAD_INGRESO.Value);
+                        }
                         retorno = true;
                     }
                     catch (Exception ex)
@@ -111,40 +122,44 @@ namespace BusinessService1
             return retorno;
         }
 
-        public List<ProductoEntity> listaProductos()
+        public List<ListaProductos> listaProductos()
         {
-            List<ProductoEntity> retorno = new List<ProductoEntity>();
-            var lista = _repositorio.PRODUCTOS.ToList();
-
-            lista.ForEach(x =>
-            {
-                var item = new ProductoEntity();
-                item.ID_PRODUCTO = x.ID_PRODUCTO;
-                item.DESCRIPCION_PRODUCTO = x.DESCRIPCION_PRODUCTO;
-                item.CANTIDAD_PRODUCTO = x.CANTIDAD_PRODUCTO;
-                item.PRECIO_UNITARIO = x.PRECIO_UNITARIO;
-                item.ESTADO_PRODUCTO=x.ESTADO_PRODUCTO.Value;
-                retorno.Add(item);
-            });
-            return retorno;
+            var lista = _repositorio.INVENTARIO
+                .GroupBy(x => new
+                {
+                    x.ID_PRODUCTO,
+                    x.PRODUCTOS.DESCRIPCION_PRODUCTO,
+                    x.STOCK_INVENTARIO,
+                    x.PRECIO_UNITARIO,
+                })
+                .Select(g => new ListaProductos()
+                {
+                    ID_PRODUCTO = g.Key.ID_PRODUCTO.Value,
+                    DESCRIPCION_PRODUCTO = g.Key.DESCRIPCION_PRODUCTO,
+                    STOCK = g.Key.STOCK_INVENTARIO,
+                    PRECIO_UNITARIO = g.Key.PRECIO_UNITARIO,
+                }).ToList();
+            return lista;
         }
 
-        public ProductoEntity obtenerProducto(int codigo)
+        public List<ListaProductos> obtenerProducto(int codigo)
         {
-            ProductoEntity retorno = new ProductoEntity();
-            var lista = _repositorio.PRODUCTOS.Where(x => x.ID_PRODUCTO == codigo).ToList();
-
-            lista.ForEach(x =>
+            var lista = _repositorio.INVENTARIO.Where(x => x.ID_PRODUCTO == codigo)
+            .GroupBy(x => new
             {
-                var item = new ProductoEntity();
-                item.ID_PRODUCTO = x.ID_PRODUCTO;
-                item.DESCRIPCION_PRODUCTO = x.DESCRIPCION_PRODUCTO;
-                item.CANTIDAD_PRODUCTO=x.CANTIDAD_PRODUCTO;
-                item.PRECIO_UNITARIO=x.PRECIO_UNITARIO;
-                item.ESTADO_PRODUCTO= x.ESTADO_PRODUCTO.Value;
-                retorno = item;
-            });
-            return retorno;
+                x.ID_PRODUCTO,
+                x.PRODUCTOS.DESCRIPCION_PRODUCTO,
+                x.STOCK_INVENTARIO,
+                x.PRECIO_UNITARIO,
+            })
+                .Select(g => new ListaProductos()
+                {
+                    ID_PRODUCTO = g.Key.ID_PRODUCTO.Value,
+                    DESCRIPCION_PRODUCTO = g.Key.DESCRIPCION_PRODUCTO,
+                    STOCK = g.Key.STOCK_INVENTARIO,
+                    PRECIO_UNITARIO = g.Key.PRECIO_UNITARIO,
+                }).ToList();
+            return lista;
         }
     }
 }

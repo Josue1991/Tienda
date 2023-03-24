@@ -12,20 +12,19 @@ namespace DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class FACTURA
+    public partial class INVENTARIO
     {
-        public int ID_FACTURA { get; set; }
-        public Nullable<int> ID_CLIENTE { get; set; }
-        public Nullable<int> ID_DETALLE { get; set; }
+        public int ID_INVENTARIO { get; set; }
+        public Nullable<int> ID_PRODUCTO { get; set; }
         public Nullable<int> ID_ESTADO { get; set; }
-        public Nullable<System.DateTime> FECHA_FACTURA { get; set; }
-        public Nullable<decimal> SUB_TOTAL { get; set; }
-        public Nullable<decimal> TOTAL { get; set; }
-        public Nullable<decimal> SUB_TOTAL_IVA { get; set; }
-        public Nullable<int> ESTADO_FACTURA { get; set; }
+        public Nullable<decimal> STOCK_INVENTARIO { get; set; }
+        public Nullable<System.DateTime> FECHA_SALIDA { get; set; }
+        public Nullable<System.DateTime> FECHA_INGRESO { get; set; }
+        public Nullable<decimal> CANTIDAD_SALIDA { get; set; }
+        public Nullable<decimal> CANTIDAD_INGRESO { get; set; }
+        public Nullable<decimal> PRECIO_UNITARIO { get; set; }
     
-        public virtual CLIENTE CLIENTE { get; set; }
-        public virtual DETALLE_FACTURA DETALLE_FACTURA { get; set; }
         public virtual ESTADO ESTADO { get; set; }
+        public virtual PRODUCTOS PRODUCTOS { get; set; }
     }
 }
