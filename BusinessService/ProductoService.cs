@@ -13,40 +13,41 @@ namespace BusinessService1
     {
         base1Entities _repositorio;
         private readonly FacturaService _facturaService;
-        public ProductoService(FacturaService facturaService)
+        DetalleFacturaService _detalleFacturasService;
+        public ProductoService(FacturaService facturaService, DetalleFacturaService detalleFacturasService)
         {
             _facturaService = facturaService;
             _repositorio = new base1Entities();
+            _detalleFacturasService = detalleFacturasService;
         }
 
         public bool editarProducto(ProductoEntity objeto)
         {
             var retorno = false;
-            using (var db = new base1Entities())
+
+            var result = _repositorio.PRODUCTOS.SingleOrDefault(b => b.ID_PRODUCTO == objeto.ID_PRODUCTO);
+            var inventario = _repositorio.INVENTARIO.Where(i => i.ID_PRODUCTO == result.ID_PRODUCTO);
+            var editado = new PRODUCTOS
             {
-                var result = db.PRODUCTOS.SingleOrDefault(b => b.ID_PRODUCTO == objeto.ID_PRODUCTO);
-                var inventario = db.INVENTARIO.Where(i => i.ID_PRODUCTO == result.ID_PRODUCTO);
-                var editado = new PRODUCTOS
+                DESCRIPCION_PRODUCTO = objeto.DESCRIPCION_PRODUCTO,
+                ID_ESTADO = objeto.ID_ESTADO,
+                ID_UNIDAD = objeto.ID_UNIDAD
+            };
+            if (result != null)
+            {
+                try
                 {
-                    DESCRIPCION_PRODUCTO = objeto.DESCRIPCION_PRODUCTO,
-                    ID_ESTADO = objeto.ID_ESTADO,
-                    ID_UNIDAD = objeto.ID_UNIDAD
-                };
-                if (result != null)
+                    _repositorio.PRODUCTOS.Attach(editado);
+                    _repositorio.Entry(editado).State = System.Data.EntityState.Deleted;
+                    _repositorio.SaveChanges();
+                    retorno = true;
+                }
+                catch (Exception ex)
                 {
-                    try
-                    {
-                        db.PRODUCTOS.Attach(editado);
-                        db.Entry(editado).State = System.Data.EntityState.Deleted;
-                        db.SaveChanges();
-                        retorno = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("No se pudo modificar el elemento!", ex);
-                    }
+                    throw new Exception("No se pudo modificar el elemento!", ex);
                 }
             }
+
             return retorno;
         }
 
@@ -71,7 +72,7 @@ namespace BusinessService1
                             db.PRODUCTOS.Attach(editado);
                             db.Entry(editado).State = System.Data.EntityState.Deleted;
                             db.SaveChanges();
-                            _facturaService.actualizarStock(objeto.ID_PRODUCTO, 0);
+                            _detalleFacturasService.actualizarStock(objeto.ID_PRODUCTO, 0);
                             retorno = true;
                         }
 
@@ -105,7 +106,7 @@ namespace BusinessService1
                         context.SaveChanges();
                         if (bscInventario != null)
                         {
-                            _facturaService.actualizarStock(objeto.ID_PRODUCTO, inventario.CANTIDAD_INGRESO.Value);
+                            _detalleFacturasService.actualizarStock(objeto.ID_PRODUCTO, inventario.CANTIDAD_INGRESO.Value);
                         }
                         else
                         {

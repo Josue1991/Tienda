@@ -51,17 +51,21 @@
   <ItemGroup>
     <Compile Include="ClienteService.cs" />
     <Compile Include="DetalleFacturaService.cs" />
+    <Compile Include="EmpleadoService.cs" />
     <Compile Include="EstadoService.cs" />
     <Compile Include="FacturaService.cs" />
     <Compile Include="FormaPagoService.cs" />
     <Compile Include="impl\IClienteService.cs" />
     <Compile Include="impl\IDetalleFacturaService.cs" />
+    <Compile Include="impl\IEmpleadoService.cs" />
     <Compile Include="impl\IEstadoService.cs" />
     <Compile Include="impl\IFacturaService.cs" />
     <Compile Include="impl\IFormaPagoService.cs" />
     <Compile Include="impl\IProductoService.cs" />
+    <Compile Include="impl\IUsuarioService.cs" />
     <Compile Include="ProductoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsuarioService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessEntity\BusinessEntity.csproj">

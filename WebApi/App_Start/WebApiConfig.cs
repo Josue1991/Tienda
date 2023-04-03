@@ -1,6 +1,7 @@
 ﻿using BusinessService1;
 using BusinessService1.impl;
 using Repository;
+using Swashbuckle.Application;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Unity;
@@ -17,8 +18,9 @@ namespace WebApi
             container.RegisterType<IFacturaService, FacturaService>();
             container.RegisterType<IFormaPagoService, FormaPagoService>();
             container.RegisterType<IProductoService, ProductoService>();
+            container.RegisterType<IUsuarioService, UsuarioService>();
 
-           
+
             config.DependencyResolver = new UnityResolver(container);
 
             // Configuración y servicios de Web API
@@ -32,6 +34,10 @@ namespace WebApi
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            var thisAssembly = typeof(SwaggerConfig).Assembly;
+
+
 
             EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);

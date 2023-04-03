@@ -12,9 +12,9 @@ namespace BusinessService1
     public class EstadoService : IEstadoService
     {
         base1Entities _repositorio;
-        public EstadoService()
+        public EstadoService(base1Entities repositorio)
         {
-            _repositorio = new base1Entities();
+            _repositorio = repositorio;
         }
 
         public bool editarEstado(EstadoEntity objeto)

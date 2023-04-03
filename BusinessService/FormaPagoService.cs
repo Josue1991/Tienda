@@ -12,29 +12,27 @@ namespace BusinessService1
     public class FormaPagoService : IFormaPagoService
     {
         base1Entities _repositorio;
-        public FormaPagoService()
+        public FormaPagoService(base1Entities repositorio)
         {
-            _repositorio = new base1Entities();
+            _repositorio = repositorio;
         }
 
         public bool editarFormaPago(FormaPagoEntity objeto)
         {
             var retorno = false;
-            using (var db = new base1Entities())
+
+            var result = _repositorio.FORMAPAGO.Where(b => b.ID_FORMAPAGO == objeto.ID_FORMAPAGO).FirstOrDefault();
+            if (result != null)
             {
-                var result = db.FORMAPAGO.SingleOrDefault(b => b.ID_FORMAPAGO == objeto.ID_FORMAPAGO);
-                if (result != null)
+                try
                 {
-                    try
-                    {
-                        result.DESCRIPCION_FORMA = objeto.DESCRIPCION_FORMA;
-                        db.SaveChanges();
-                        retorno = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("No se pudo modificar el elemento!", ex);
-                    }
+                    result.DESCRIPCION_FORMA = objeto.DESCRIPCION_FORMA;
+                    _repositorio.SaveChanges();
+                    retorno = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("No se pudo modificar el elemento!", ex);
                 }
             }
             return retorno;
@@ -43,21 +41,18 @@ namespace BusinessService1
         public bool eliminarFormaPago(FormaPagoEntity objeto)
         {
             var retorno = false;
-            using (var db = new base1Entities())
+            var result = _repositorio.FORMAPAGO.SingleOrDefault(b => b.ID_FORMAPAGO == objeto.ID_FORMAPAGO);
+            if (result != null)
             {
-                var result = db.FORMAPAGO.SingleOrDefault(b => b.ID_FORMAPAGO == objeto.ID_FORMAPAGO);
-                if (result != null)
+                try
                 {
-                    try
-                    {
-                        db.Entry(result).State = System.Data.EntityState.Deleted;
-                        db.SaveChanges();
-                        retorno = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("No se pudo modificar el elemento!", ex);
-                    }
+                    _repositorio.Entry(result).State = System.Data.EntityState.Deleted;
+                    _repositorio.SaveChanges();
+                    retorno = true;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("No se pudo modificar el elemento!", ex);
                 }
             }
             return retorno;

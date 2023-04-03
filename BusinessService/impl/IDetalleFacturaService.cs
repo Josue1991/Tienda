@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessEntity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace BusinessService1.impl
 {
     public interface IDetalleFacturaService
     {
+        bool crearDetalles(FacturasEntity faturas);
     }
 }

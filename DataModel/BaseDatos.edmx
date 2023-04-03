@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="ID_CLIENTE" />
           </Key>
-          <Property Name="ID_CLIENTE" Type="int" Nullable="false" />
+          <Property Name="ID_CLIENTE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_FORMAPAGO" Type="int" />
           <Property Name="ID_ESTADO" Type="int" />
           <Property Name="COD_USUARIO" Type="int" />
@@ -25,7 +25,7 @@
           <Key>
             <PropertyRef Name="ID_DETALLE" />
           </Key>
-          <Property Name="ID_DETALLE" Type="int" Nullable="false" />
+          <Property Name="ID_DETALLE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_PRODUCTO" Type="int" />
           <Property Name="ID_ESTADO" Type="int" />
           <Property Name="PRECIO_TOTAL" Type="decimal" Precision="18" Scale="0" />
@@ -36,7 +36,7 @@
           <Key>
             <PropertyRef Name="ID_EMPLEADO" />
           </Key>
-          <Property Name="ID_EMPLEADO" Type="int" Nullable="false" />
+          <Property Name="ID_EMPLEADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NOMBRE_EMPLEADO" Type="varchar" MaxLength="20" />
           <Property Name="APELLIDO_EMPLEADO" Type="varchar" MaxLength="20" />
           <Property Name="DNI_EMPLEADO" Type="varchar" MaxLength="15" />
@@ -45,14 +45,14 @@
           <Key>
             <PropertyRef Name="ID_ESTADO" />
           </Key>
-          <Property Name="ID_ESTADO" Type="int" Nullable="false" />
+          <Property Name="ID_ESTADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DESCRIPCION_ESTADO" Type="text" />
         </EntityType>
         <EntityType Name="FACTURA">
           <Key>
             <PropertyRef Name="ID_FACTURA" />
           </Key>
-          <Property Name="ID_FACTURA" Type="int" Nullable="false" />
+          <Property Name="ID_FACTURA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_CLIENTE" Type="int" />
           <Property Name="ID_DETALLE" Type="int" />
           <Property Name="ID_ESTADO" Type="int" />
@@ -66,7 +66,7 @@
           <Key>
             <PropertyRef Name="ID_FORMAPAGO" />
           </Key>
-          <Property Name="ID_FORMAPAGO" Type="int" Nullable="false" />
+          <Property Name="ID_FORMAPAGO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DESCRIPCION_FORMA" Type="text" />
           <Property Name="ESTADO_FORMAPAGO" Type="int" />
         </EntityType>
@@ -74,7 +74,7 @@
           <Key>
             <PropertyRef Name="ID_INVENTARIO" />
           </Key>
-          <Property Name="ID_INVENTARIO" Type="int" Nullable="false" />
+          <Property Name="ID_INVENTARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_PRODUCTO" Type="int" />
           <Property Name="ID_ESTADO" Type="int" />
           <Property Name="STOCK_INVENTARIO" Type="decimal" Precision="18" Scale="0" />
@@ -88,7 +88,7 @@
           <Key>
             <PropertyRef Name="ID_PRODUCTO" />
           </Key>
-          <Property Name="ID_PRODUCTO" Type="int" Nullable="false" />
+          <Property Name="ID_PRODUCTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_ESTADO" Type="int" />
           <Property Name="ID_UNIDAD" Type="int" />
           <Property Name="DESCRIPCION_PRODUCTO" Type="text" />
@@ -97,7 +97,7 @@
           <Key>
             <PropertyRef Name="ID_UNIDAD" />
           </Key>
-          <Property Name="ID_UNIDAD" Type="int" Nullable="false" />
+          <Property Name="ID_UNIDAD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DESCRIPCION_UNIDAD" Type="char" MaxLength="20" />
           <Property Name="ABREVIATURA_UNIDAD" Type="char" MaxLength="4" />
           <Property Name="EQUIVALENCIA_UNIDAD" Type="numeric" Precision="18" Scale="0" />
@@ -106,7 +106,7 @@
           <Key>
             <PropertyRef Name="ID_USUARIO" />
           </Key>
-          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
+          <Property Name="ID_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="COD_EMPLEADO" Type="int" />
           <Property Name="ID_ESTADO" Type="int" />
           <Property Name="CONTRASENA" Type="varchar" MaxLength="10" />

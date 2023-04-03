@@ -123,13 +123,15 @@ namespace BusinessService1
         {
             var retorno = false;
             var elemento = _repositorio.CLIENTE.Where(x => x.CEDULA == cliente.CEDULA).FirstOrDefault();
+            var estado = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.ToLower().Contains("inactivo")).FirstOrDefault();
+
             try
             {
                 if (elemento != null)
                 {
                     using (var context = new base1Entities())
                     {
-                        cliente.ESTADO_CLIENTE = 2;
+                        cliente.ESTADO_CLIENTE = estado.ID_ESTADO;
                         context.Entry(elemento).CurrentValues.SetValues(cliente);
                         context.SaveChanges();
                         retorno = true;
