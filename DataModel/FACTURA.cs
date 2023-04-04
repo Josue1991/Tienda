@@ -22,7 +22,6 @@ namespace DataModel
         public Nullable<decimal> SUB_TOTAL { get; set; }
         public Nullable<decimal> TOTAL { get; set; }
         public Nullable<decimal> SUB_TOTAL_IVA { get; set; }
-        public Nullable<int> ESTADO_FACTURA { get; set; }
     
         public virtual CLIENTE CLIENTE { get; set; }
         public virtual DETALLE_FACTURA DETALLE_FACTURA { get; set; }

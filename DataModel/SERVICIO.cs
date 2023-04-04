@@ -12,22 +12,19 @@ namespace DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class PRODUCTOS
+    public partial class SERVICIO
     {
-        public PRODUCTOS()
+        public SERVICIO()
         {
+            this.DETALLE_FACTURA = new HashSet<DETALLE_FACTURA>();
             this.DETALLESERVICIO = new HashSet<DETALLESERVICIO>();
-            this.INVENTARIO = new HashSet<INVENTARIO>();
         }
     
-        public int ID_PRODUCTO { get; set; }
-        public Nullable<int> ID_ESTADO { get; set; }
-        public Nullable<int> ID_UNIDAD { get; set; }
-        public string DESCRIPCION_PRODUCTO { get; set; }
+        public int ID_SERVICIO { get; set; }
+        public string DESCRIPCION_SERVICIO { get; set; }
+        public Nullable<decimal> PRECIO_SERVICIO { get; set; }
     
+        public virtual ICollection<DETALLE_FACTURA> DETALLE_FACTURA { get; set; }
         public virtual ICollection<DETALLESERVICIO> DETALLESERVICIO { get; set; }
-        public virtual ESTADO ESTADO { get; set; }
-        public virtual ICollection<INVENTARIO> INVENTARIO { get; set; }
-        public virtual UNIDADES UNIDADES { get; set; }
     }
 }

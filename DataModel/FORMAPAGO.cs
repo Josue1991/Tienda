@@ -20,9 +20,11 @@ namespace DataModel
         }
     
         public int ID_FORMAPAGO { get; set; }
+        public Nullable<int> ID_ESTADO { get; set; }
         public string DESCRIPCION_FORMA { get; set; }
         public Nullable<int> ESTADO_FORMAPAGO { get; set; }
     
         public virtual ICollection<CLIENTE> CLIENTE { get; set; }
+        public virtual ESTADO ESTADO { get; set; }
     }
 }

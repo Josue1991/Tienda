@@ -12,21 +12,14 @@ namespace DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class USUARIOS
+    public partial class DETALLESERVICIO
     {
-        public USUARIOS()
-        {
-            this.CLIENTE = new HashSet<CLIENTE>();
-        }
+        public int ID_DETALLESERVICIO { get; set; }
+        public int ID_SERVICIO { get; set; }
+        public Nullable<int> ID_PRODUCTO { get; set; }
+        public Nullable<decimal> CANTIDAD_DETALLE { get; set; }
     
-        public int ID_USUARIO { get; set; }
-        public int ID_EMPLEADO { get; set; }
-        public Nullable<int> ID_ESTADO { get; set; }
-        public string CONTRASENA { get; set; }
-        public string EMAIL { get; set; }
-    
-        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
-        public virtual EMPLEADO EMPLEADO { get; set; }
-        public virtual ESTADO ESTADO { get; set; }
+        public virtual PRODUCTOS PRODUCTOS { get; set; }
+        public virtual SERVICIO SERVICIO { get; set; }
     }
 }

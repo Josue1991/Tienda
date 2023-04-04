@@ -66,6 +66,9 @@
     <Compile Include="CLIENTE.cs">
       <DependentUpon>BaseDatos.tt</DependentUpon>
     </Compile>
+    <Compile Include="DETALLESERVICIO.cs">
+      <DependentUpon>BaseDatos.tt</DependentUpon>
+    </Compile>
     <Compile Include="DETALLE_FACTURA.cs">
       <DependentUpon>BaseDatos.tt</DependentUpon>
     </Compile>
@@ -88,6 +91,12 @@
       <DependentUpon>BaseDatos.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SERVICIO.cs">
+      <DependentUpon>BaseDatos.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>BaseDatos.tt</DependentUpon>
+    </Compile>
     <Compile Include="UNIDADES.cs">
       <DependentUpon>BaseDatos.tt</DependentUpon>
     </Compile>

@@ -4,26 +4,32 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="397c748d1a5944cea6202f2a0246c01f" Name="Diagram1">
-        <EntityTypeShape EntityType="base1Model.CLIENTE" Width="1.5" PointX="5.25" PointY="3.75" />
-        <EntityTypeShape EntityType="base1Model.DETALLE_FACTURA" Width="1.5" PointX="6" PointY="9.25" />
-        <EntityTypeShape EntityType="base1Model.EMPLEADO" Width="1.5" PointX="0.75" PointY="5.625" />
-        <EntityTypeShape EntityType="base1Model.ESTADO" Width="1.5" PointX="0.75" PointY="9.375" />
-        <EntityTypeShape EntityType="base1Model.FACTURA" Width="1.5" PointX="8.25" PointY="6.25" />
-        <EntityTypeShape EntityType="base1Model.FORMAPAGO" Width="1.5" PointX="3" PointY="2.375" />
-        <EntityTypeShape EntityType="base1Model.INVENTARIO" Width="1.5" PointX="3" PointY="9.125" />
-        <EntityTypeShape EntityType="base1Model.PRODUCTOS" Width="1.5" PointX="3" PointY="13.375" />
-        <EntityTypeShape EntityType="base1Model.UNIDADES" Width="1.5" PointX="0.75" PointY="13.625" />
-        <EntityTypeShape EntityType="base1Model.USUARIOS" Width="1.5" PointX="3" PointY="5.375" />
+      <Diagram DiagramId="397c748d1a5944cea6202f2a0246c01f" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="base1Model.CLIENTE" Width="1.5" PointX="5.25" PointY="19.25" />
+        <EntityTypeShape EntityType="base1Model.DETALLE_FACTURA" Width="1.5" PointX="6" PointY="10.75" />
+        <EntityTypeShape EntityType="base1Model.DETALLESERVICIO" Width="1.5" PointX="8.25" PointY="7" />
+        <EntityTypeShape EntityType="base1Model.EMPLEADO" Width="1.5" PointX="0.75" PointY="15.125" />
+        <EntityTypeShape EntityType="base1Model.ESTADO" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="base1Model.FACTURA" Width="1.5" PointX="8.25" PointY="15.25" />
+        <EntityTypeShape EntityType="base1Model.FORMAPAGO" Width="1.5" PointX="3" PointY="29.25" />
+        <EntityTypeShape EntityType="base1Model.INVENTARIO" Width="1.5" PointX="5.25" PointY="6.5" />
+        <EntityTypeShape EntityType="base1Model.PRODUCTOS" Width="1.5" PointX="3" PointY="6.75" />
+        <EntityTypeShape EntityType="base1Model.SERVICIO" Width="1.5" PointX="6" PointY="3.125" />
+        <EntityTypeShape EntityType="base1Model.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="base1Model.UNIDADES" Width="1.5" PointX="0.75" PointY="7.125" />
+        <EntityTypeShape EntityType="base1Model.USUARIOS" Width="1.5" PointX="3" PointY="10.75" />
         <AssociationConnector Association="base1Model.FK_CLIENTE_REFERENCE_ESTADO" />
         <AssociationConnector Association="base1Model.FK_CLIENTE_REFERENCE_FORMAPAG" />
         <AssociationConnector Association="base1Model.FK_CLIENTE_REFERENCE_USUARIOS" />
         <AssociationConnector Association="base1Model.FK_FACTURA_RELATIONS_CLIENTE" />
         <AssociationConnector Association="base1Model.FK_DETALLE__REFERENCE_ESTADO" />
-        <AssociationConnector Association="base1Model.FK_DETALLE__RELATIONS_PRODUCTO" />
+        <AssociationConnector Association="base1Model.FK_DETALLE__RELATIONS_SERVICIO" />
         <AssociationConnector Association="base1Model.FK_FACTURA_RELATIONS_DETALLE_" />
+        <AssociationConnector Association="base1Model.FK_DETALLES_RELATIONS_PRODUCTO" />
+        <AssociationConnector Association="base1Model.FK_DETALLES_RELATIONS_SERVICIO" />
         <AssociationConnector Association="base1Model.FK_USUARIOS_REFERENCE_EMPLEADO" />
         <AssociationConnector Association="base1Model.FK_FACTURA_REFERENCE_ESTADO" />
+        <AssociationConnector Association="base1Model.FK_FORMAPAG_REFERENCE_ESTADO" />
         <AssociationConnector Association="base1Model.FK_INVENTAR_REFERENCE_ESTADO" />
         <AssociationConnector Association="base1Model.FK_PRODUCTO_REFERENCE_ESTADO" />
         <AssociationConnector Association="base1Model.FK_USUARIOS_REFERENCE_ESTADO" />

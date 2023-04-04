@@ -19,6 +19,7 @@ namespace DataModel
             this.CLIENTE = new HashSet<CLIENTE>();
             this.DETALLE_FACTURA = new HashSet<DETALLE_FACTURA>();
             this.FACTURA = new HashSet<FACTURA>();
+            this.FORMAPAGO = new HashSet<FORMAPAGO>();
             this.INVENTARIO = new HashSet<INVENTARIO>();
             this.PRODUCTOS = new HashSet<PRODUCTOS>();
             this.USUARIOS = new HashSet<USUARIOS>();
@@ -30,6 +31,7 @@ namespace DataModel
         public virtual ICollection<CLIENTE> CLIENTE { get; set; }
         public virtual ICollection<DETALLE_FACTURA> DETALLE_FACTURA { get; set; }
         public virtual ICollection<FACTURA> FACTURA { get; set; }
+        public virtual ICollection<FORMAPAGO> FORMAPAGO { get; set; }
         public virtual ICollection<INVENTARIO> INVENTARIO { get; set; }
         public virtual ICollection<PRODUCTOS> PRODUCTOS { get; set; }
         public virtual ICollection<USUARIOS> USUARIOS { get; set; }

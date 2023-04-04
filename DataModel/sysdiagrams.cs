@@ -12,21 +12,12 @@ namespace DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class USUARIOS
+    public partial class sysdiagrams
     {
-        public USUARIOS()
-        {
-            this.CLIENTE = new HashSet<CLIENTE>();
-        }
-    
-        public int ID_USUARIO { get; set; }
-        public int ID_EMPLEADO { get; set; }
-        public Nullable<int> ID_ESTADO { get; set; }
-        public string CONTRASENA { get; set; }
-        public string EMAIL { get; set; }
-    
-        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
-        public virtual EMPLEADO EMPLEADO { get; set; }
-        public virtual ESTADO ESTADO { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

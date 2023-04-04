@@ -21,15 +21,14 @@ namespace DataModel
     
         public int ID_CLIENTE { get; set; }
         public Nullable<int> ID_FORMAPAGO { get; set; }
-        public Nullable<int> ID_ESTADO { get; set; }
-        public Nullable<int> COD_USUARIO { get; set; }
+        public int ID_ESTADO { get; set; }
+        public Nullable<int> ID_USUARIO { get; set; }
         public string CEDULA { get; set; }
         public string NOMBRE { get; set; }
         public string APELLIDO { get; set; }
         public string DIRECCION { get; set; }
         public Nullable<int> TELEFONO { get; set; }
         public string EMAIL { get; set; }
-        public Nullable<int> ESTADO_CLIENTE { get; set; }
     
         public virtual ESTADO ESTADO { get; set; }
         public virtual FORMAPAGO FORMAPAGO { get; set; }
