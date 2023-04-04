@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ClientesEntity.cs" />
     <Compile Include="DetalleFacturasEntity.cs" />
+    <Compile Include="DetalleServicioEntity.cs" />
     <Compile Include="EmpleadoEntity.cs" />
     <Compile Include="EstadoEntity.cs" />
     <Compile Include="FacturasEntity.cs" />
@@ -51,6 +52,8 @@
     <Compile Include="ListaProductos.cs" />
     <Compile Include="ProductoEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiciosEntity.cs" />
+    <Compile Include="UnidadesEntity.cs" />
     <Compile Include="UsuarioEntity.cs" />
     <Compile Include="UsuarioList.cs" />
   </ItemGroup>

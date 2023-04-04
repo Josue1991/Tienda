@@ -14,17 +14,23 @@ namespace DataModel
     
     public partial class FACTURA
     {
+        public FACTURA()
+        {
+            this.DETALLE_FACTURA = new HashSet<DETALLE_FACTURA>();
+        }
+    
         public int ID_FACTURA { get; set; }
         public Nullable<int> ID_CLIENTE { get; set; }
-        public Nullable<int> ID_DETALLE { get; set; }
         public Nullable<int> ID_ESTADO { get; set; }
+        public Nullable<int> ID_USUARIO { get; set; }
         public Nullable<System.DateTime> FECHA_FACTURA { get; set; }
         public Nullable<decimal> SUB_TOTAL { get; set; }
         public Nullable<decimal> TOTAL { get; set; }
         public Nullable<decimal> SUB_TOTAL_IVA { get; set; }
     
         public virtual CLIENTE CLIENTE { get; set; }
-        public virtual DETALLE_FACTURA DETALLE_FACTURA { get; set; }
+        public virtual ICollection<DETALLE_FACTURA> DETALLE_FACTURA { get; set; }
         public virtual ESTADO ESTADO { get; set; }
+        public virtual USUARIOS USUARIOS { get; set; }
     }
 }

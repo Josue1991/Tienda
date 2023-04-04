@@ -35,7 +35,6 @@ namespace DataModel
         public DbSet<INVENTARIO> INVENTARIO { get; set; }
         public DbSet<PRODUCTOS> PRODUCTOS { get; set; }
         public DbSet<SERVICIO> SERVICIO { get; set; }
-        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<UNIDADES> UNIDADES { get; set; }
         public DbSet<USUARIOS> USUARIOS { get; set; }
     }

@@ -94,9 +94,6 @@
     <Compile Include="SERVICIO.cs">
       <DependentUpon>BaseDatos.tt</DependentUpon>
     </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>BaseDatos.tt</DependentUpon>
-    </Compile>
     <Compile Include="UNIDADES.cs">
       <DependentUpon>BaseDatos.tt</DependentUpon>
     </Compile>

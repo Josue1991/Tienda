@@ -22,7 +22,6 @@ namespace DataModel
         public int ID_CLIENTE { get; set; }
         public Nullable<int> ID_FORMAPAGO { get; set; }
         public int ID_ESTADO { get; set; }
-        public Nullable<int> ID_USUARIO { get; set; }
         public string CEDULA { get; set; }
         public string NOMBRE { get; set; }
         public string APELLIDO { get; set; }
@@ -32,7 +31,6 @@ namespace DataModel
     
         public virtual ESTADO ESTADO { get; set; }
         public virtual FORMAPAGO FORMAPAGO { get; set; }
-        public virtual USUARIOS USUARIOS { get; set; }
         public virtual ICollection<FACTURA> FACTURA { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace DataModel
     {
         public USUARIOS()
         {
-            this.CLIENTE = new HashSet<CLIENTE>();
+            this.FACTURA = new HashSet<FACTURA>();
         }
     
         public int ID_USUARIO { get; set; }
@@ -25,8 +25,8 @@ namespace DataModel
         public string CONTRASENA { get; set; }
         public string EMAIL { get; set; }
     
-        public virtual ICollection<CLIENTE> CLIENTE { get; set; }
         public virtual EMPLEADO EMPLEADO { get; set; }
         public virtual ESTADO ESTADO { get; set; }
+        public virtual ICollection<FACTURA> FACTURA { get; set; }
     }
 }

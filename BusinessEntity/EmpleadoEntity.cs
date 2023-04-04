@@ -13,6 +13,8 @@ namespace BusinessEntity
         public string NOMBRE_EMPLEADO { get; set; }
         public string APELLIDO_EMPLEADO { get; set; }
         public string DNI_EMPLEADO { get; set; }
-        public List<UsuarioEntity> Usuarios { get; set; }
+
+        public virtual List<UsuarioEntity> USUARIOS { get; set; }
+
     }
 }
