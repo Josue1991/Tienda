@@ -15,9 +15,7 @@ namespace BusinessEntity
         public string CONTRASENA { get; set; }
         public string EMAIL { get; set; }
 
-        public List<CLIENTE> CLIENTE { get; set; }
-        public EMPLEADO EMPLEADO { get; set; }
-        public ESTADO ESTADO { get; set; }
+        public EmpleadoEntity EMPLEADO { get; set; }
 
     }
 }

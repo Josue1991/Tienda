@@ -21,23 +21,20 @@ namespace BusinessService1
         {
             var retorno = false;
             var elemento = _repositorio.USUARIOS.Where(x => x.EMPLEADO.DNI_EMPLEADO == login.DNI_EMPLEADO).FirstOrDefault();
-            var estado = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.ToLower().Contains("activo")).FirstOrDefault();
+            var estado = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.Contains("activo"));
 
             try
             {
                 if (elemento == null)
                 {
-                    using (var context = new base1Entities())
-                    {
-                        var item = new USUARIOS();
-                        item.COD_EMPLEADO = login.ID_EMPLEADO;
-                        item.EMAIL = login.Usuarios[0].EMAIL;
-                        item.CONTRASENA = login.Usuarios[0].CONTRASENA;
-                        item.ESTADO = estado;
-                        context.USUARIOS.Add(item);
-                        context.SaveChanges();
-                        retorno = true;
-                    }
+                    var item = new USUARIOS();
+                    item.COD_EMPLEADO = login.ID_EMPLEADO;
+                    item.EMAIL = login.Usuarios[0].EMAIL;
+                    item.CONTRASENA = login.Usuarios[0].CONTRASENA;
+                    item.ID_ESTADO = estado != null ? estado.FirstOrDefault().ID_ESTADO : 0;
+                    _repositorio.USUARIOS.Add(item);
+                    _repositorio.SaveChanges();
+                    retorno = true;
                 }
             }
             catch (Exception ex)
@@ -74,18 +71,16 @@ namespace BusinessService1
         {
             var retorno = false;
             var elemento = _repositorio.USUARIOS.Where(x => x.COD_EMPLEADO == usuario.COD_EMPLEADO).FirstOrDefault();
-            var estado = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.ToLower().Contains("activo")).FirstOrDefault();
+            var estado = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.Contains("activo")).FirstOrDefault();
             try
             {
                 if (elemento != null)
                 {
-                    using (var context = new base1Entities())
-                    {
-                        usuario.ID_ESTADO = estado.ID_ESTADO;
-                        context.Entry(elemento).CurrentValues.SetValues(usuario);
-                        context.SaveChanges();
-                        retorno = true;
-                    }
+                    usuario.ID_ESTADO = estado.ID_ESTADO;
+                    _repositorio.Entry(elemento).CurrentValues.SetValues(usuario);
+                    _repositorio.SaveChanges();
+                    retorno = true;
+
                 }
             }
             catch (Exception ex)

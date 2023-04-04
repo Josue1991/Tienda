@@ -15,6 +15,7 @@ namespace WebApi
             container.RegisterType<IClienteService, ClienteService>();
             container.RegisterType<IDetalleFacturaService, DetalleFacturaService>();
             container.RegisterType<IEstadoService, EstadoService>();
+            container.RegisterType<IEmpleadoService, EmpleadoService>();
             container.RegisterType<IFacturaService, FacturaService>();
             container.RegisterType<IFormaPagoService, FormaPagoService>();
             container.RegisterType<IProductoService, ProductoService>();

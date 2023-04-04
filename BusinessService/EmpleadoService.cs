@@ -28,13 +28,10 @@ namespace BusinessService1
             {
                 if (elemento != null)
                 {
-                    using (var context = new base1Entities())
-                    {
                         empleado.ID_EMPLEADO = estado.ID_ESTADO;
-                        context.Entry(elemento).CurrentValues.SetValues(empleado);
-                        context.SaveChanges();
-                        retorno = true;
-                    }
+                        _repositorio.Entry(elemento).CurrentValues.SetValues(empleado);
+                        _repositorio.SaveChanges();
+                        retorno = true;                    
                 }
             }
             catch (Exception ex)
@@ -52,18 +49,16 @@ namespace BusinessService1
             {
                 if (elemento == null)
                 {
-                    using (var context = new base1Entities())
-                    {
                         var item = new EMPLEADO();
                         item.DNI_EMPLEADO = empleado.DNI_EMPLEADO;
                         item.NOMBRE_EMPLEADO = empleado.NOMBRE_EMPLEADO;
                         item.APELLIDO_EMPLEADO = empleado.APELLIDO_EMPLEADO;
-                        context.EMPLEADO.Add(item);
-                        context.SaveChanges();
+                        _repositorio.EMPLEADO.Add(item);
+                        _repositorio.SaveChanges();
                         retorno = true;
                         empleado.ID_EMPLEADO = item.ID_EMPLEADO;
                         _usuarioService.CrearUsuario(empleado);
-                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -81,13 +76,12 @@ namespace BusinessService1
             {
                 if (elemento != null)
                 {
-                    using (var context = new base1Entities())
-                    {
-                        context.Entry(elemento).CurrentValues.SetValues(empleado);
-                        context.SaveChanges();
+                    
+                        _repositorio.Entry(elemento).CurrentValues.SetValues(empleado);
+                        _repositorio.SaveChanges();
                         retorno = true;
                         _usuarioService.EditarUsuario(empleado.Usuarios[0]);
-                    }
+                    
                 }
             }
             catch (Exception ex)

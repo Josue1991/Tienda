@@ -54,35 +54,33 @@ namespace BusinessService1
         public bool eliminarProducto(ProductoEntity objeto)
         {
             var retorno = false;
-            using (var db = new base1Entities())
+            var result = _repositorio.PRODUCTOS.SingleOrDefault(b => b.ID_PRODUCTO == objeto.ID_PRODUCTO);
+            var estado = _repositorio.ESTADO.SingleOrDefault(e => e.DESCRIPCION_ESTADO.ToLower().Contains("anulado"));
+            if (result != null)
             {
-                var result = db.PRODUCTOS.SingleOrDefault(b => b.ID_PRODUCTO == objeto.ID_PRODUCTO);
-                var estado = db.ESTADO.SingleOrDefault(e => e.DESCRIPCION_ESTADO.ToLower().Contains("anulado"));
+
                 if (result != null)
                 {
-
-                    if (result != null)
+                    try
                     {
-                        try
+                        var editado = new PRODUCTOS
                         {
-                            var editado = new PRODUCTOS
-                            {
-                                ID_ESTADO = estado.ID_ESTADO
-                            };
-                            db.PRODUCTOS.Attach(editado);
-                            db.Entry(editado).State = System.Data.EntityState.Deleted;
-                            db.SaveChanges();
-                            _detalleFacturasService.actualizarStock(objeto.ID_PRODUCTO, 0);
-                            retorno = true;
-                        }
+                            ID_ESTADO = estado.ID_ESTADO
+                        };
+                        _repositorio.PRODUCTOS.Attach(editado);
+                        _repositorio.Entry(editado).State = System.Data.EntityState.Deleted;
+                        _repositorio.SaveChanges();
+                        _detalleFacturasService.actualizarStock(objeto.ID_PRODUCTO, 0);
+                        retorno = true;
+                    }
 
-                        catch (Exception ex)
-                        {
-                            throw new Exception("No se pudo modificar el elemento!", ex);
-                        }
+                    catch (Exception ex)
+                    {
+                        throw new Exception("No se pudo modificar el elemento!", ex);
                     }
                 }
             }
+
             return retorno;
         }
 
@@ -94,16 +92,14 @@ namespace BusinessService1
             var bscInventario = _repositorio.INVENTARIO.Where(x => x.ID_PRODUCTO == objeto.ID_PRODUCTO).FirstOrDefault();
             if (elemento == null)
             {
-                using (var context = new base1Entities())
-                {
                     try
                     {
                         var item = new PRODUCTOS();
                         item.DESCRIPCION_PRODUCTO = objeto.DESCRIPCION_PRODUCTO;
                         item.ID_ESTADO = estado.ID_ESTADO;
                         item.ID_UNIDAD = _repositorio.UNIDADES.Where(x => x.ID_UNIDAD == objeto.ID_UNIDAD).Select(u => u.ID_UNIDAD).FirstOrDefault();
-                        context.PRODUCTOS.Add(item);
-                        context.SaveChanges();
+                        _repositorio.PRODUCTOS.Add(item);
+                        _repositorio.SaveChanges();
                         if (bscInventario != null)
                         {
                             _detalleFacturasService.actualizarStock(objeto.ID_PRODUCTO, inventario.CANTIDAD_INGRESO.Value);
@@ -118,7 +114,7 @@ namespace BusinessService1
                     {
                         throw new Exception("No se pudo ingresar el elemento!", ex);
                     }
-                }
+                
             }
             return retorno;
         }

@@ -11,7 +11,7 @@ namespace BusinessService1
 {
     public class ClienteService : IClienteService
     {
-        base1Entities _repositorio;        
+        base1Entities _repositorio;
         public ClienteService()
         {
             _repositorio = new base1Entities();
@@ -21,7 +21,7 @@ namespace BusinessService1
         {
             List<ClientesEntity> retorno = new List<ClientesEntity>();
             var lista = _repositorio.CLIENTE.ToList();
-            
+
             lista.ForEach(x =>
             {
                 var estados = _repositorio.ESTADO.Where(e => e.ID_ESTADO == x.ESTADO_CLIENTE).FirstOrDefault();
@@ -43,7 +43,7 @@ namespace BusinessService1
         {
             ClientesEntity retorno = new ClientesEntity();
             var elemento = _repositorio.CLIENTE.Where(x => x.CEDULA == cedula).FirstOrDefault();
-            var estados = _repositorio.ESTADO.Where(x=> x.ID_ESTADO == estado).FirstOrDefault();
+            var estados = _repositorio.ESTADO.Where(x => x.ID_ESTADO == estado).FirstOrDefault();
             var estadoCli = new EstadoEntity();
             estadoCli.ID_ESTADO = estados.ID_ESTADO;
             estadoCli.DESCRIPCION_ESTADO = estados.DESCRIPCION_ESTADO;
@@ -73,43 +73,39 @@ namespace BusinessService1
             {
                 if (elemento == null)
                 {
-                    using (var context = new base1Entities())
-                    {
-                        var item = new CLIENTE();
-                        item.CEDULA = cliente.CEDULA;
-                        item.NOMBRE = cliente.NOMBRE;
-                        item.EMAIL = cliente.EMAIL;
-                        item.APELLIDO = cliente.APELLIDO;
-                        item.DIRECCION = cliente.DIRECCION;
-                        item.TELEFONO = cliente.TELEFONO;
-                        item.ID_FORMAPAGO = cliente.ID_FORMAPAGO;
-                        item.ESTADO_CLIENTE = cliente.ESTADO_CLIENTE;
-                        context.CLIENTE.Add(item);
-                        context.SaveChanges();
-                        retorno = true;
-                    }
+                    var item = new CLIENTE();
+                    item.CEDULA = cliente.CEDULA;
+                    item.NOMBRE = cliente.NOMBRE;
+                    item.EMAIL = cliente.EMAIL;
+                    item.APELLIDO = cliente.APELLIDO;
+                    item.DIRECCION = cliente.DIRECCION;
+                    item.TELEFONO = cliente.TELEFONO;
+                    item.ID_FORMAPAGO = cliente.ID_FORMAPAGO;
+                    item.ESTADO_CLIENTE = cliente.ESTADO_CLIENTE;
+                    _repositorio.CLIENTE.Add(item);
+                    _repositorio.SaveChanges();
+                    retorno = true;
+
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("No se pudo ingresar el elemento!",ex);
+                throw new Exception("No se pudo ingresar el elemento!", ex);
             }
             return retorno;
         }
         public bool editarCliente(ClientesEntity cliente)
         {
             var retorno = false;
-            var elemento = _repositorio.CLIENTE.Where(x=> x.CEDULA == cliente.CEDULA).FirstOrDefault();  
+            var elemento = _repositorio.CLIENTE.Where(x => x.CEDULA == cliente.CEDULA).FirstOrDefault();
             try
             {
                 if (elemento != null)
-                {
-                    using (var context = new base1Entities())
-                    {
-                        context.Entry(elemento).CurrentValues.SetValues(cliente);
-                        context.SaveChanges();
+                { 
+                        _repositorio.Entry(elemento).CurrentValues.SetValues(cliente);
+                        _repositorio.SaveChanges();
                         retorno = true;
-                    }
+                      
                 }
             }
             catch (Exception ex)
@@ -129,13 +125,11 @@ namespace BusinessService1
             {
                 if (elemento != null)
                 {
-                    using (var context = new base1Entities())
-                    {
                         cliente.ESTADO_CLIENTE = estado.ID_ESTADO;
-                        context.Entry(elemento).CurrentValues.SetValues(cliente);
-                        context.SaveChanges();
+                        _repositorio.Entry(elemento).CurrentValues.SetValues(cliente);
+                        _repositorio.SaveChanges();
                         retorno = true;
-                    }
+                    
                 }
             }
             catch (Exception ex)

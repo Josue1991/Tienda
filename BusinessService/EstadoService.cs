@@ -66,7 +66,7 @@ namespace BusinessService1
         public bool ingresarEstado(EstadoEntity objeto)
         {
             var retorno = false;
-            var elemento = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.ToLower().Contains(objeto.DESCRIPCION_ESTADO.ToLower())).FirstOrDefault();
+            var elemento = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.Contains(objeto.DESCRIPCION_ESTADO)).FirstOrDefault();
 
             if (elemento == null)
             {

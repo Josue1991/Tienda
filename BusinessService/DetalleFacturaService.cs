@@ -73,45 +73,43 @@ namespace BusinessService1
         {
             var retorno = false;
 
-            using (var context = new base1Entities())
+            try
             {
-                try
-                {
-                    var ultimoInv = context.INVENTARIO.Where(x => x.ID_PRODUCTO == cod_producto)
-                        .OrderByDescending(x => x.ID_INVENTARIO).FirstOrDefault();
-                    var estado = context.ESTADO.Where(e => e.DESCRIPCION_ESTADO.Contains("Salida")).FirstOrDefault();
-                    var eliminado = context.ESTADO.Where(e => e.DESCRIPCION_ESTADO.Contains("Eliminado")).FirstOrDefault();
-                    var item = new INVENTARIO();
+                var ultimoInv = _context.INVENTARIO.Where(x => x.ID_PRODUCTO == cod_producto)
+                    .OrderByDescending(x => x.ID_INVENTARIO).FirstOrDefault();
+                var estado = _context.ESTADO.Where(e => e.DESCRIPCION_ESTADO.Contains("Salida")).FirstOrDefault();
+                var eliminado = _context.ESTADO.Where(e => e.DESCRIPCION_ESTADO.Contains("Eliminado")).FirstOrDefault();
+                var item = new INVENTARIO();
 
-                    //Ingreso Encabezado
-                    item.ID_PRODUCTO = cod_producto;
-                    item.ID_ESTADO = estado.ID_ESTADO;
-                    if (cantidad == 0)
-                    {
-                        item.CANTIDAD_SALIDA = ultimoInv.STOCK_INVENTARIO;
-                        item.ID_ESTADO = eliminado.ID_ESTADO;
-                        item.CANTIDAD_INGRESO = 0;
-                        item.STOCK_INVENTARIO = 0;
-                    }
-                    else
-                    {
-                        item.CANTIDAD_SALIDA = cantidad;
-                        item.ID_ESTADO = estado.ID_ESTADO;
-                        item.CANTIDAD_INGRESO = 0;
-                        item.STOCK_INVENTARIO = ultimoInv.STOCK_INVENTARIO - cantidad;
-                    }
-                    item.FECHA_SALIDA = DateTime.Now;
-                    item.PRECIO_UNITARIO = ultimoInv.PRECIO_UNITARIO;
-                    context.INVENTARIO.Add(item);
-                    context.SaveChanges();
-                    retorno = true;
-                }
-                catch (Exception ex)
+                //Ingreso Encabezado
+                item.ID_PRODUCTO = cod_producto;
+                item.ID_ESTADO = estado.ID_ESTADO;
+                if (cantidad == 0)
                 {
-                    throw new Exception("No se pudo ingresar el elemento!", ex);
+                    item.CANTIDAD_SALIDA = ultimoInv.STOCK_INVENTARIO;
+                    item.ID_ESTADO = eliminado.ID_ESTADO;
+                    item.CANTIDAD_INGRESO = 0;
+                    item.STOCK_INVENTARIO = 0;
                 }
-                return retorno;
+                else
+                {
+                    item.CANTIDAD_SALIDA = cantidad;
+                    item.ID_ESTADO = estado.ID_ESTADO;
+                    item.CANTIDAD_INGRESO = 0;
+                    item.STOCK_INVENTARIO = ultimoInv.STOCK_INVENTARIO - cantidad;
+                }
+                item.FECHA_SALIDA = DateTime.Now;
+                item.PRECIO_UNITARIO = ultimoInv.PRECIO_UNITARIO;
+                _context.INVENTARIO.Add(item);
+                _context.SaveChanges();
+                retorno = true;
             }
+            catch (Exception ex)
+            {
+                throw new Exception("No se pudo ingresar el elemento!", ex);
+            }
+            return retorno;
+
         }
 
         public bool actualizarValoresFactura(decimal precio, decimal precioIva, decimal preciototal, int codigo)

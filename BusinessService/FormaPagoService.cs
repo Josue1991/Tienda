@@ -65,22 +65,20 @@ namespace BusinessService1
 
             if (elemento == null)
             {
-                using (var context = new base1Entities())
-                {
                     try
                     {
                         var item = new FORMAPAGO();
                         item.DESCRIPCION_FORMA = objeto.DESCRIPCION_FORMA;
                         item.ESTADO_FORMAPAGO = objeto.ESTADO_FORMAPAGO;
-                        context.FORMAPAGO.Add(item);
-                        context.SaveChanges();
+                        _repositorio.FORMAPAGO.Add(item);
+                        _repositorio.SaveChanges();
                         retorno = true;
                     }
                     catch (Exception ex)
                     {
                         throw new Exception("No se pudo ingresar el elemento!", ex);
                     }
-                }
+                
             }
             return retorno;
         }
