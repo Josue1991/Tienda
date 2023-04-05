@@ -29,7 +29,7 @@ namespace BusinessService1
             {
                 try
                 {
-                    result.ESTADO_FACTURA = estado.ID_ESTADO;
+                    result.ID_ESTADO = estado.ID_ESTADO;
                     _repositorio.SaveChanges();
                     retorno = true;
                 }
@@ -54,8 +54,8 @@ namespace BusinessService1
                 decimal precioTotal = 0;
                 //Ingreso Encabezado
                 item.ID_CLIENTE = faturas.ID_CLIENTE;
-                item.ID_FACTURA = faturas.COD_FACTURA;
-                item.ESTADO_FACTURA = faturas.ESTADO_FACTURA;
+                item.ID_FACTURA = faturas.ID_FACTURA;
+                item.ID_ESTADO = faturas.ID_ESTADO;
                 item.FECHA_FACTURA = faturas.FECHA_FACTURA;
                 _repositorio.FACTURA.Add(item);
                 _repositorio.SaveChanges();

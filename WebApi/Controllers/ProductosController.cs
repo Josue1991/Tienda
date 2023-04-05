@@ -25,19 +25,16 @@ namespace WebApi.Controllers
         }
         [Route("ingresarProducto")]
         [HttpPost]
-        public bool ingresarProducto([FromBody] ProductoEntity nuevo, [FromBody] InventarioEntity inventario)
+        public bool ingresarProducto([FromBody] ProductoInventarioEntity objeto )
         {
-            return _productoService.ingresarProducto(nuevo,inventario);
+            return _productoService.ingresarProducto(objeto);
         }
 
         [Route("editarProducto")]
         [HttpPost]
-        public bool editarProducto(string descripcion, int idEstado)
+        public bool editarProducto([FromBody] ProductoInventarioEntity objeto)
         {
-            var editar = new ProductoEntity();
-            editar.ID_PRODUCTO = idEstado;
-            editar.DESCRIPCION_PRODUCTO = descripcion;
-            return _productoService.editarProducto(editar);
+            return _productoService.editarProducto(objeto);
         }
         [Route("eliminarProducto")]
         [HttpPost]

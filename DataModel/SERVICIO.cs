@@ -16,15 +16,15 @@ namespace DataModel
     {
         public SERVICIO()
         {
+            this.DETALLE_FACTURA = new HashSet<DETALLE_FACTURA>();
             this.DETALLESERVICIO = new HashSet<DETALLESERVICIO>();
         }
     
         public int ID_SERVICIO { get; set; }
-        public Nullable<int> ID_DETALLE { get; set; }
         public string DESCRIPCION_SERVICIO { get; set; }
         public Nullable<decimal> PRECIO_SERVICIO { get; set; }
     
-        public virtual DETALLE_FACTURA DETALLE_FACTURA { get; set; }
+        public virtual ICollection<DETALLE_FACTURA> DETALLE_FACTURA { get; set; }
         public virtual ICollection<DETALLESERVICIO> DETALLESERVICIO { get; set; }
     }
 }

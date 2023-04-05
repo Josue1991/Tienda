@@ -19,36 +19,46 @@ namespace BusinessService1
         public bool crearDetalles(FacturasEntity faturas)
         {
             var retorno = false;
+            var listaDet = new List<DETALLE_FACTURA>();
             var detalles = new DETALLE_FACTURA();
+
             var cantidad = 0;
             decimal precioTotal = 0;
-            var listaDetalles = new List<DETALLE_FACTURA>();
 
             try
             {
-                var estado = _context.ESTADO.SingleOrDefault(e => e.DESCRIPCION_ESTADO.ToLower().Contains("activo"));
-                var item = _context.FACTURA.SingleOrDefault(e => e.ID_FACTURA == faturas.COD_FACTURA);
+                var estado = _context.ESTADO.Where(x => x.DESCRIPCION_ESTADO.Contains("Activo")).FirstOrDefault();
+
+                //Guardar Detalles Factura
                 faturas.DETALLE_FACTURA.ToList().ForEach(e =>
                 {
-                    var producto = _context.PRODUCTOS.SingleOrDefault(p => p.ID_PRODUCTO == e.ID_PRODUCTO.Value);
-                    var inventario = _context.INVENTARIO.Where(i => i.PRODUCTOS.ID_PRODUCTO == e.ID_PRODUCTO)
-                    .OrderByDescending(x => x.FECHA_SALIDA).FirstOrDefault();
-
-                    detalles.ID_DETALLE = faturas.COD_FACTURA;
+                    var servicios = _context.SERVICIO.Where(x => x.ID_SERVICIO == e.ID_SERVICIO).FirstOrDefault();
+                    detalles = new DETALLE_FACTURA();
+                    detalles.ID_FACTURA = e.ID_FACTURA;
                     detalles.CANTIDAD_DETALLE = e.CANTIDAD_DETALLE;
-                    detalles.ID_ESTADO = estado.ID_ESTADO;
-                    detalles.PRECIO_PRODUCTO = e.PRECIO_PRODUCTO;
-                    detalles.ID_PRODUCTO = e.ID_PRODUCTO;
-                    detalles.PRECIO_TOTAL = inventario.PRECIO_UNITARIO * e.CANTIDAD_DETALLE;
-                    precioTotal = precioTotal + detalles.PRECIO_TOTAL.Value;
-                    cantidad = e.CANTIDAD_DETALLE.Value;
-                    if (actualizarStock(producto.ID_PRODUCTO, cantidad))
-                    {
-                        listaDetalles.Add(detalles);
-                    }
+                    detalles.ID_SERVICIO = e.ID_SERVICIO;
+                    detalles.PRECIO_TOTAL = e.CANTIDAD_DETALLE * servicios.PRECIO_SERVICIO;
+                    precioTotal += detalles.PRECIO_TOTAL.Value;
                 });
 
-                listaDetalles.ForEach(e =>
+                faturas.DETALLE_FACTURA.ToList().ForEach(e =>
+                {
+                    var servicios = _context.SERVICIO.Where(x => x.ID_SERVICIO == e.ID_SERVICIO).FirstOrDefault();
+                    var detallesSer = servicios.DETALLESERVICIO.ToList();
+
+                    detallesSer.ForEach(detSer =>
+                    {
+                        var inventario = _context.INVENTARIO.Where(d => d.ID_PRODUCTO == detSer.ID_PRODUCTO)
+                        .OrderByDescending(x => x.FECHA_SALIDA).FirstOrDefault();
+
+                        if (actualizarStock(detSer.ID_PRODUCTO.Value, cantidad))
+                        {
+                            listaDet.Add(detalles);
+                        }
+                    });
+                });
+
+                listaDet.ForEach(e =>
                 {
                     _context.DETALLE_FACTURA.Add(e);
                 });
@@ -58,7 +68,7 @@ namespace BusinessService1
                 decimal sub_total = precioTotal;
                 decimal sub_iva = (precioTotal * 12) / 100;
                 decimal total = sub_total + sub_iva;
-                actualizarValoresFactura(sub_total, sub_iva, total, faturas.COD_FACTURA);
+                actualizarValoresFactura(sub_total, sub_iva, total, faturas.ID_FACTURA);
 
                 retorno = true;
             }

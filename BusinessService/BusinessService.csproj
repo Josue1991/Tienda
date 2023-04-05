@@ -62,9 +62,13 @@
     <Compile Include="impl\IFacturaService.cs" />
     <Compile Include="impl\IFormaPagoService.cs" />
     <Compile Include="impl\IProductoService.cs" />
+    <Compile Include="impl\IServiciosService.cs" />
+    <Compile Include="impl\IUnidadService.cs" />
     <Compile Include="impl\IUsuarioService.cs" />
     <Compile Include="ProductoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiciosService.cs" />
+    <Compile Include="UnidadService.cs" />
     <Compile Include="UsuarioService.cs" />
   </ItemGroup>
   <ItemGroup>

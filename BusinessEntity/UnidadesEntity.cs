@@ -14,7 +14,6 @@ namespace BusinessEntity
         public string ABREVIATURA_UNIDAD { get; set; }
         public Nullable<decimal> EQUIVALENCIA_UNIDAD { get; set; }
 
-        public List<ProductoEntity> PRODUCTOS { get; set; }
 
     }
 }

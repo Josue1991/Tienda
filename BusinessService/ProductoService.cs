@@ -21,7 +21,7 @@ namespace BusinessService1
             _detalleFacturasService = detalleFacturasService;
         }
 
-        public bool editarProducto(ProductoEntity objeto)
+        public bool editarProducto(ProductoInventarioEntity objeto)
         {
             var retorno = false;
 
@@ -84,11 +84,11 @@ namespace BusinessService1
             return retorno;
         }
 
-        public bool ingresarProducto(ProductoEntity objeto, InventarioEntity inventario)
+        public bool ingresarProducto(ProductoInventarioEntity objeto)
         {
             var retorno = false;
-            var elemento = _repositorio.PRODUCTOS.Where(x => x.DESCRIPCION_PRODUCTO.ToLower().Contains(objeto.DESCRIPCION_PRODUCTO.ToLower())).FirstOrDefault();
-            var estado = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.ToLower().Contains("ingreso")).FirstOrDefault();
+            var elemento = _repositorio.PRODUCTOS.Where(x => x.DESCRIPCION_PRODUCTO.Contains(objeto.DESCRIPCION_PRODUCTO)).FirstOrDefault();
+            var estado = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.Contains("ingreso")).FirstOrDefault();
             var bscInventario = _repositorio.INVENTARIO.Where(x => x.ID_PRODUCTO == objeto.ID_PRODUCTO).FirstOrDefault();
             if (elemento == null)
             {
@@ -102,11 +102,11 @@ namespace BusinessService1
                         _repositorio.SaveChanges();
                         if (bscInventario != null)
                         {
-                            _detalleFacturasService.actualizarStock(objeto.ID_PRODUCTO, inventario.CANTIDAD_INGRESO.Value);
+                            _detalleFacturasService.actualizarStock(objeto.ID_PRODUCTO, objeto.CANTIDAD.Value);
                         }
                         else
                         {
-                            _facturaService.comprarStock(objeto.ID_PRODUCTO, inventario.CANTIDAD_INGRESO.Value);
+                            _facturaService.comprarStock(objeto.ID_PRODUCTO, objeto.CANTIDAD.Value);
                         }
                         retorno = true;
                     }
@@ -115,6 +115,10 @@ namespace BusinessService1
                         throw new Exception("No se pudo ingresar el elemento!", ex);
                     }
                 
+            }
+            else
+            {
+                retorno = editarProducto(objeto);
             }
             return retorno;
         }

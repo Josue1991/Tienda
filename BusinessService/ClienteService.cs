@@ -24,7 +24,7 @@ namespace BusinessService1
 
             lista.ForEach(x =>
             {
-                var estados = _repositorio.ESTADO.Where(e => e.ID_ESTADO == x.ESTADO_CLIENTE).FirstOrDefault();
+                var estados = _repositorio.ESTADO.Where(e => e.ID_ESTADO == x.ID_ESTADO).FirstOrDefault();
                 var item = new ClientesEntity();
                 item.ID_CLIENTE = x.ID_CLIENTE;
                 item.CEDULA = x.CEDULA;
@@ -34,7 +34,7 @@ namespace BusinessService1
                 item.TELEFONO = x.TELEFONO;
                 item.EMAIL = x.EMAIL;
                 item.ID_FORMAPAGO = x.ID_FORMAPAGO;
-                item.ESTADO_CLIENTE = x.ESTADO_CLIENTE.Value;
+                item.ID_ESTADO = x.ID_ESTADO;
                 retorno.Add(item);
             });
             return retorno;
@@ -56,11 +56,11 @@ namespace BusinessService1
                 item.NOMBRE = elemento.NOMBRE;
                 item.APELLIDO = elemento.APELLIDO;
                 item.DIRECCION = elemento.DIRECCION;
-                item.ESTADO_CLIENTE = estados.ID_ESTADO;
+                item.ID_ESTADO = estados.ID_ESTADO;
                 item.TELEFONO = elemento.TELEFONO;
                 item.EMAIL = elemento.EMAIL;
                 item.ID_FORMAPAGO = elemento.ID_FORMAPAGO;
-                item.ESTADO_CLIENTE = estados.ID_ESTADO;
+                item.ID_ESTADO = estados.ID_ESTADO;
                 retorno = item;
             }
             return retorno;
@@ -81,7 +81,7 @@ namespace BusinessService1
                     item.DIRECCION = cliente.DIRECCION;
                     item.TELEFONO = cliente.TELEFONO;
                     item.ID_FORMAPAGO = cliente.ID_FORMAPAGO;
-                    item.ESTADO_CLIENTE = cliente.ESTADO_CLIENTE;
+                    item.ID_ESTADO = cliente.ID_ESTADO;
                     _repositorio.CLIENTE.Add(item);
                     _repositorio.SaveChanges();
                     retorno = true;
@@ -125,7 +125,7 @@ namespace BusinessService1
             {
                 if (elemento != null)
                 {
-                        cliente.ESTADO_CLIENTE = estado.ID_ESTADO;
+                        cliente.ID_ESTADO = estado.ID_ESTADO;
                         _repositorio.Entry(elemento).CurrentValues.SetValues(cliente);
                         _repositorio.SaveChanges();
                         retorno = true;

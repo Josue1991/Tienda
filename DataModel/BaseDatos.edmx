@@ -26,6 +26,7 @@
           <Property Name="ID_DETALLE" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_ESTADO" Type="int" />
           <Property Name="ID_FACTURA" Type="int" />
+          <Property Name="ID_SERVICIO" Type="int" />
           <Property Name="PRECIO_TOTAL" Type="money" />
           <Property Name="CANTIDAD_DETALLE" Type="int" />
         </EntityType>
@@ -104,7 +105,6 @@
             <PropertyRef Name="ID_SERVICIO" />
           </Key>
           <Property Name="ID_SERVICIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ID_DETALLE" Type="int" />
           <Property Name="DESCRIPCION_SERVICIO" Type="char" MaxLength="20" />
           <Property Name="PRECIO_SERVICIO" Type="money" />
         </EntityType>
@@ -172,6 +172,18 @@
             </Principal>
             <Dependent Role="DETALLE_FACTURA">
               <PropertyRef Name="ID_FACTURA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DETALLE__REFERENCE_SERVICIO">
+          <End Role="SERVICIO" Type="Self.SERVICIO" Multiplicity="0..1" />
+          <End Role="DETALLE_FACTURA" Type="Self.DETALLE_FACTURA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SERVICIO">
+              <PropertyRef Name="ID_SERVICIO" />
+            </Principal>
+            <Dependent Role="DETALLE_FACTURA">
+              <PropertyRef Name="ID_SERVICIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -295,18 +307,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SERVICIO_REFERENCE_DETALLE_">
-          <End Role="DETALLE_FACTURA" Type="Self.DETALLE_FACTURA" Multiplicity="0..1" />
-          <End Role="SERVICIO" Type="Self.SERVICIO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DETALLE_FACTURA">
-              <PropertyRef Name="ID_DETALLE" />
-            </Principal>
-            <Dependent Role="SERVICIO">
-              <PropertyRef Name="ID_DETALLE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_USUARIOS_REFERENCE_EMPLEADO">
           <End Role="EMPLEADO" Type="Self.EMPLEADO" Multiplicity="1" />
           <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
@@ -360,6 +360,10 @@
             <End Role="FACTURA" EntitySet="FACTURA" />
             <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
           </AssociationSet>
+          <AssociationSet Name="FK_DETALLE__REFERENCE_SERVICIO" Association="Self.FK_DETALLE__REFERENCE_SERVICIO">
+            <End Role="SERVICIO" EntitySet="SERVICIO" />
+            <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
+          </AssociationSet>
           <AssociationSet Name="FK_DETALLES_RELATIONS_PRODUCTO" Association="Self.FK_DETALLES_RELATIONS_PRODUCTO">
             <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
             <End Role="DETALLESERVICIO" EntitySet="DETALLESERVICIO" />
@@ -399,10 +403,6 @@
           <AssociationSet Name="FK_PRODUCTO_REFERENCE_UNIDADES" Association="Self.FK_PRODUCTO_REFERENCE_UNIDADES">
             <End Role="UNIDADES" EntitySet="UNIDADES" />
             <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SERVICIO_REFERENCE_DETALLE_" Association="Self.FK_SERVICIO_REFERENCE_DETALLE_">
-            <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
-            <End Role="SERVICIO" EntitySet="SERVICIO" />
           </AssociationSet>
           <AssociationSet Name="FK_USUARIOS_REFERENCE_EMPLEADO" Association="Self.FK_USUARIOS_REFERENCE_EMPLEADO">
             <End Role="EMPLEADO" EntitySet="EMPLEADO" />
@@ -450,9 +450,9 @@
             <End Role="FACTURA" EntitySet="FACTURA" />
             <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
           </AssociationSet>
-          <AssociationSet Name="FK_SERVICIO_REFERENCE_DETALLE_" Association="base1Model.FK_SERVICIO_REFERENCE_DETALLE_">
-            <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
+          <AssociationSet Name="FK_DETALLE__REFERENCE_SERVICIO" Association="base1Model.FK_DETALLE__REFERENCE_SERVICIO">
             <End Role="SERVICIO" EntitySet="SERVICIO" />
+            <End Role="DETALLE_FACTURA" EntitySet="DETALLE_FACTURA" />
           </AssociationSet>
           <AssociationSet Name="FK_DETALLES_RELATIONS_PRODUCTO" Association="base1Model.FK_DETALLES_RELATIONS_PRODUCTO">
             <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
@@ -523,11 +523,12 @@
           <Property Name="ID_DETALLE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_ESTADO" Type="Int32" />
           <Property Name="ID_FACTURA" Type="Int32" />
+          <Property Name="ID_SERVICIO" Type="Int32" />
           <Property Name="PRECIO_TOTAL" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="CANTIDAD_DETALLE" Type="Int32" />
           <NavigationProperty Name="ESTADO" Relationship="base1Model.FK_DETALLE__REFERENCE_ESTADO" FromRole="DETALLE_FACTURA" ToRole="ESTADO" />
           <NavigationProperty Name="FACTURA" Relationship="base1Model.FK_DETALLE__REFERENCE_FACTURA" FromRole="DETALLE_FACTURA" ToRole="FACTURA" />
-          <NavigationProperty Name="SERVICIO" Relationship="base1Model.FK_SERVICIO_REFERENCE_DETALLE_" FromRole="DETALLE_FACTURA" ToRole="SERVICIO" />
+          <NavigationProperty Name="SERVICIO" Relationship="base1Model.FK_DETALLE__REFERENCE_SERVICIO" FromRole="DETALLE_FACTURA" ToRole="SERVICIO" />
         </EntityType>
         <EntityType Name="DETALLESERVICIO">
           <Key>
@@ -626,10 +627,9 @@
             <PropertyRef Name="ID_SERVICIO" />
           </Key>
           <Property Name="ID_SERVICIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ID_DETALLE" Type="Int32" />
           <Property Name="DESCRIPCION_SERVICIO" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
           <Property Name="PRECIO_SERVICIO" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="DETALLE_FACTURA" Relationship="base1Model.FK_SERVICIO_REFERENCE_DETALLE_" FromRole="SERVICIO" ToRole="DETALLE_FACTURA" />
+          <NavigationProperty Name="DETALLE_FACTURA" Relationship="base1Model.FK_DETALLE__REFERENCE_SERVICIO" FromRole="SERVICIO" ToRole="DETALLE_FACTURA" />
           <NavigationProperty Name="DETALLESERVICIO" Relationship="base1Model.FK_DETALLES_RELATIONS_SERVICIO" FromRole="SERVICIO" ToRole="DETALLESERVICIO" />
         </EntityType>
         <EntityType Name="UNIDADES">
@@ -715,15 +715,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SERVICIO_REFERENCE_DETALLE_">
-          <End Type="base1Model.DETALLE_FACTURA" Role="DETALLE_FACTURA" Multiplicity="0..1" />
-          <End Type="base1Model.SERVICIO" Role="SERVICIO" Multiplicity="*" />
+        <Association Name="FK_DETALLE__REFERENCE_SERVICIO">
+          <End Type="base1Model.SERVICIO" Role="SERVICIO" Multiplicity="0..1" />
+          <End Type="base1Model.DETALLE_FACTURA" Role="DETALLE_FACTURA" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="DETALLE_FACTURA">
-              <PropertyRef Name="ID_DETALLE" />
+            <Principal Role="SERVICIO">
+              <PropertyRef Name="ID_SERVICIO" />
             </Principal>
-            <Dependent Role="SERVICIO">
-              <PropertyRef Name="ID_DETALLE" />
+            <Dependent Role="DETALLE_FACTURA">
+              <PropertyRef Name="ID_SERVICIO" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -885,6 +885,7 @@
               <MappingFragment StoreEntitySet="DETALLE_FACTURA">
                 <ScalarProperty Name="CANTIDAD_DETALLE" ColumnName="CANTIDAD_DETALLE" />
                 <ScalarProperty Name="PRECIO_TOTAL" ColumnName="PRECIO_TOTAL" />
+                <ScalarProperty Name="ID_SERVICIO" ColumnName="ID_SERVICIO" />
                 <ScalarProperty Name="ID_FACTURA" ColumnName="ID_FACTURA" />
                 <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
                 <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
@@ -973,7 +974,6 @@
               <MappingFragment StoreEntitySet="SERVICIO">
                 <ScalarProperty Name="PRECIO_SERVICIO" ColumnName="PRECIO_SERVICIO" />
                 <ScalarProperty Name="DESCRIPCION_SERVICIO" ColumnName="DESCRIPCION_SERVICIO" />
-                <ScalarProperty Name="ID_DETALLE" ColumnName="ID_DETALLE" />
                 <ScalarProperty Name="ID_SERVICIO" ColumnName="ID_SERVICIO" />
               </MappingFragment>
             </EntityTypeMapping>

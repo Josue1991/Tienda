@@ -11,8 +11,8 @@ namespace BusinessService1.impl
     {
         List<ListaProductos> listaProductos();
         List<ListaProductos> obtenerProducto(int codigo);
-        bool ingresarProducto(ProductoEntity objeto, InventarioEntity inventario);
-        bool editarProducto(ProductoEntity objeto);
+        bool ingresarProducto(ProductoInventarioEntity inventario);
+        bool editarProducto(ProductoInventarioEntity objeto);
         bool eliminarProducto(ProductoEntity objeto);
     }
 }

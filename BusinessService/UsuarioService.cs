@@ -28,9 +28,9 @@ namespace BusinessService1
                 if (elemento == null)
                 {
                     var item = new USUARIOS();
-                    item.COD_EMPLEADO = login.ID_EMPLEADO;
-                    item.EMAIL = login.Usuarios[0].EMAIL;
-                    item.CONTRASENA = login.Usuarios[0].CONTRASENA;
+                    item.ID_EMPLEADO = login.ID_EMPLEADO;
+                    item.EMAIL = login.USUARIOS[0].EMAIL;
+                    item.CONTRASENA = login.USUARIOS[0].CONTRASENA;
                     item.ID_ESTADO = estado != null ? estado.FirstOrDefault().ID_ESTADO : 0;
                     _repositorio.USUARIOS.Add(item);
                     _repositorio.SaveChanges();
@@ -47,7 +47,7 @@ namespace BusinessService1
         public bool EditarUsuario(UsuarioEntity usuario)
         {
             var retorno = false;
-            var elemento = _repositorio.USUARIOS.Where(x => x.COD_EMPLEADO == usuario.COD_EMPLEADO).FirstOrDefault();
+            var elemento = _repositorio.USUARIOS.Where(x => x.ID_EMPLEADO == usuario.ID_EMPLEADO).FirstOrDefault();
             try
             {
                 if (elemento != null)
@@ -70,7 +70,7 @@ namespace BusinessService1
         public bool EliminarUsuario(UsuarioEntity usuario)
         {
             var retorno = false;
-            var elemento = _repositorio.USUARIOS.Where(x => x.COD_EMPLEADO == usuario.COD_EMPLEADO).FirstOrDefault();
+            var elemento = _repositorio.USUARIOS.Where(x => x.ID_EMPLEADO == usuario.ID_EMPLEADO).FirstOrDefault();
             var estado = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.Contains("activo")).FirstOrDefault();
             try
             {

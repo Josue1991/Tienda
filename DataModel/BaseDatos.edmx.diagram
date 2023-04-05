@@ -6,15 +6,15 @@
     <edmx:Diagrams>
       <Diagram DiagramId="397c748d1a5944cea6202f2a0246c01f" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="base1Model.CLIENTE" Width="1.5" PointX="5.25" PointY="15.5" />
-        <EntityTypeShape EntityType="base1Model.DETALLE_FACTURA" Width="1.5" PointX="10.5" PointY="11.25" />
-        <EntityTypeShape EntityType="base1Model.DETALLESERVICIO" Width="1.5" PointX="15" PointY="10.125" />
-        <EntityTypeShape EntityType="base1Model.EMPLEADO" Width="1.5" PointX="3.75" PointY="5" />
+        <EntityTypeShape EntityType="base1Model.DETALLE_FACTURA" Width="1.5" PointX="10.5" PointY="11.125" />
+        <EntityTypeShape EntityType="base1Model.DETALLESERVICIO" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="base1Model.EMPLEADO" Width="1.5" PointX="3.75" PointY="2" />
         <EntityTypeShape EntityType="base1Model.ESTADO" Width="1.5" PointX="0.75" PointY="8.625" />
         <EntityTypeShape EntityType="base1Model.FACTURA" Width="1.5" PointX="8.25" PointY="13.125" />
         <EntityTypeShape EntityType="base1Model.FORMAPAGO" Width="1.5" PointX="3" PointY="23.5" />
         <EntityTypeShape EntityType="base1Model.INVENTARIO" Width="1.5" PointX="8.25" PointY="8.5" />
         <EntityTypeShape EntityType="base1Model.PRODUCTOS" Width="1.5" PointX="3" PointY="8.75" />
-        <EntityTypeShape EntityType="base1Model.SERVICIO" Width="1.5" PointX="12.75" PointY="11.5" />
+        <EntityTypeShape EntityType="base1Model.SERVICIO" Width="1.5" PointX="3" PointY="5" />
         <EntityTypeShape EntityType="base1Model.UNIDADES" Width="1.5" PointX="0.75" PointY="5" />
         <EntityTypeShape EntityType="base1Model.USUARIOS" Width="1.5" PointX="6" PointY="8.75" />
         <AssociationConnector Association="base1Model.FK_CLIENTE_REFERENCE_ESTADO" />
@@ -22,7 +22,7 @@
         <AssociationConnector Association="base1Model.FK_FACTURA_RELATIONS_CLIENTE" />
         <AssociationConnector Association="base1Model.FK_DETALLE__REFERENCE_ESTADO" />
         <AssociationConnector Association="base1Model.FK_DETALLE__REFERENCE_FACTURA" />
-        <AssociationConnector Association="base1Model.FK_SERVICIO_REFERENCE_DETALLE_" />
+        <AssociationConnector Association="base1Model.FK_DETALLE__REFERENCE_SERVICIO" />
         <AssociationConnector Association="base1Model.FK_DETALLES_RELATIONS_PRODUCTO" />
         <AssociationConnector Association="base1Model.FK_DETALLES_RELATIONS_SERVICIO" />
         <AssociationConnector Association="base1Model.FK_USUARIOS_REFERENCE_EMPLEADO" />
