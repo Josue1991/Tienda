@@ -17,8 +17,6 @@ namespace BusinessEntity
         public Nullable<decimal> SUB_TOTAL { get; set; }
         public Nullable<decimal> TOTAL { get; set; }
         public Nullable<decimal> SUB_TOTAL_IVA { get; set; }
-        public ClientesEntity CLIENTE { get; set; }
         public List<DetalleFacturasEntity> DETALLE_FACTURA { get; set; }
-        public EstadoEntity ESTADO { get; set; }
     }
 }

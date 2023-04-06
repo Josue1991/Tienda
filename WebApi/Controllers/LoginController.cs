@@ -20,9 +20,11 @@ namespace WebApi.Controllers
     public class LoginController : ApiController
     {
         IUsuarioService _usuarioService;
-        public LoginController(IUsuarioService usuarioService)
+        IEmpleadoService _empleadoService; 
+        public LoginController(IUsuarioService usuarioService, IEmpleadoService empleadoService)
         {
             _usuarioService = usuarioService;
+            _empleadoService = empleadoService;
         }
 
         [Route("Login")]
@@ -57,7 +59,6 @@ namespace WebApi.Controllers
         {
             return Request.CreateResponse(HttpStatusCode.Unauthorized);
         }
-
         private class AuthenticatedResponse
         {
             public string Token { get; set; }

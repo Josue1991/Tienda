@@ -14,7 +14,7 @@ namespace BusinessService1.impl
         bool CrearUsuario(EmpleadoEntity login);
         bool EditarUsuario(UsuarioEntity usuario);
         bool EliminarUsuario(UsuarioEntity usuario);
-        List<UsuarioEntity> ListarUsuarios();
-        UsuarioEntity ObtenerUsuario(UsuarioEntity usuario);
+        List<UsuarioList> ListarUsuarios();
+        UsuarioList ObtenerUsuario(UsuarioEntity usuario);
     }
 }

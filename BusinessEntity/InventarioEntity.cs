@@ -18,8 +18,5 @@ namespace BusinessEntity
         public Nullable<decimal> CANTIDAD_SALIDA { get; set; }
         public Nullable<decimal> CANTIDAD_INGRESO { get; set; }
         public Nullable<decimal> PRECIO_UNITARIO { get; set; }
-
-        public virtual EstadoEntity ESTADO { get; set; }
-        public virtual ProductoEntity PRODUCTOS { get; set; }
     }
 }

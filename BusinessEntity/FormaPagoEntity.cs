@@ -13,8 +13,5 @@ namespace BusinessEntity
         public Nullable<int> ID_ESTADO { get; set; }
         public string DESCRIPCION_FORMA { get; set; }
         public Nullable<int> ESTADO_FORMAPAGO { get; set; }
-
-        public List<ClientesEntity> CLIENTE { get; set; }
-        public EstadoEntity ESTADO { get; set; }
     }
 }

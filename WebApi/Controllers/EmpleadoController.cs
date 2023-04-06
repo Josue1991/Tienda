@@ -13,29 +13,98 @@ namespace WebApi.Controllers
     public class EmpleadoController : ApiController
     {
         IEmpleadoService _empleadoService;
-        public EmpleadoController(IEmpleadoService empleadoService)
+        IUsuarioService _usuarioService;
+        public EmpleadoController(IEmpleadoService empleadoService, IUsuarioService usuarioService)
         {
-            _empleadoService= empleadoService;  
+            _empleadoService = empleadoService;
+            _usuarioService = usuarioService;
         }
-        [Route("listarEmpleados")]
+        [Route("ListarEmpleados")]
         [HttpGet]
-        public List<EmpleadoEntity> listarEmpleados()
+        public List<EmpleadoEntity> ListarEmpleados()
         {
             return _empleadoService.ListarEmpleado();
         }
-
-        [Route("crearEmpleados")]
-        [HttpPost]
-        public bool crearEmpleados([FromBody] EmpleadoEntity nuevo)
+        [Route("ListarUsuarios")]
+        [HttpGet]
+        public List<UsuarioList> ListarUsuarios()
         {
-            return _empleadoService.CrearEmpleado(nuevo);
-        }
-        [Route("editarEmpleados")]
-        [HttpPost]
-        public bool editarEmpleados([FromBody] EmpleadoEntity nuevo)
-        {
-            return _empleadoService.CrearEmpleado(nuevo);
+            return _usuarioService.ListarUsuarios();
         }
 
+        [Route("CrearEmpleados")]
+        [HttpPost]
+        public HttpResponseMessage CrearEmpleados([FromBody] EmpleadoEntity nuevo)
+        {
+            var retorno = new HttpResponseMessage(HttpStatusCode.NotFound);
+            try
+            {
+                if (_empleadoService.CrearEmpleado(nuevo))
+                {
+                    retorno = Request.CreateResponse(HttpStatusCode.OK);
+                }
+            }
+            catch (Exception ex)
+            {
+                retorno = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+            return retorno;
+        }
+        [Route("EditarEmpleados")]
+        [HttpPost]
+        public HttpResponseMessage EditarEmpleados([FromBody] EmpleadoEntity nuevo)
+        {
+            var retorno = new HttpResponseMessage(HttpStatusCode.NotFound);
+            try
+            {
+                if (_empleadoService.EditarEmpleado(nuevo))
+                {
+                    retorno = Request.CreateResponse(HttpStatusCode.OK);
+                }
+            }
+            catch (Exception ex)
+            {
+                retorno = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+            return retorno;
+        }
+        [Route("EditarUsuario")]
+        [HttpPost]
+        public HttpResponseMessage EditarUsuario([FromBody] UsuarioEntity nuevo)
+        {
+            var retorno = new HttpResponseMessage(HttpStatusCode.NotFound);
+            try
+            {
+                if (_usuarioService.EditarUsuario(nuevo))
+                {
+                    retorno = Request.CreateResponse(HttpStatusCode.OK);
+                }
+            }
+            catch (Exception ex)
+            {
+                retorno = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+            return retorno;
+        }
+
+
+        [Route("EliminarEmpleados")]
+        [HttpPost]
+        public HttpResponseMessage EliminarEmpleados([FromBody] EmpleadoEntity nuevo)
+        {
+            var retorno = new HttpResponseMessage(HttpStatusCode.NotFound);
+            try
+            {
+                if (_empleadoService.BorrarEmpleado(nuevo))
+                {
+                    retorno = Request.CreateResponse(HttpStatusCode.OK);
+                }
+            }
+            catch (Exception ex)
+            {
+                retorno = Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
+            return retorno;
+        }
     }
 }

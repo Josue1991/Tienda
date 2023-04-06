@@ -124,8 +124,8 @@
           <Property Name="ID_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_EMPLEADO" Type="int" Nullable="false" />
           <Property Name="ID_ESTADO" Type="int" />
-          <Property Name="CONTRASENA" Type="varchar" MaxLength="10" />
-          <Property Name="EMAIL" Type="varchar" MaxLength="20" />
+          <Property Name="CONTRASENA" Type="varchar" MaxLength="100" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_CLIENTE_REFERENCE_ESTADO">
           <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="1" />
@@ -649,8 +649,8 @@
           <Property Name="ID_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_EMPLEADO" Type="Int32" Nullable="false" />
           <Property Name="ID_ESTADO" Type="Int32" />
-          <Property Name="CONTRASENA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="EMAIL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CONTRASENA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="EMPLEADO" Relationship="base1Model.FK_USUARIOS_REFERENCE_EMPLEADO" FromRole="USUARIOS" ToRole="EMPLEADO" />
           <NavigationProperty Name="ESTADO" Relationship="base1Model.FK_USUARIOS_REFERENCE_ESTADO" FromRole="USUARIOS" ToRole="ESTADO" />
           <NavigationProperty Name="FACTURA" Relationship="base1Model.FK_FACTURA_REFERENCE_USUARIOS" FromRole="USUARIOS" ToRole="FACTURA" />

@@ -15,9 +15,6 @@ namespace BusinessEntity
         public Nullable<int> ID_SERVICIO { get; set; }
         public Nullable<decimal> PRECIO_TOTAL { get; set; }
         public Nullable<int> CANTIDAD_DETALLE { get; set; }
-        public EstadoEntity ESTADO { get; set; }
-        public FacturasEntity FACTURA { get; set; }
-        public virtual List<ServiciosEntity> SERVICIO { get; set; }
 
     }
 }

@@ -18,8 +18,6 @@ namespace BusinessEntity
         public string DIRECCION { get; set; }
         public Nullable<int> TELEFONO { get; set; }
         public string EMAIL { get; set; }
-        public EstadoEntity ESTADO { get; set; }
         public FormaPagoEntity FORMAPAGO { get; set; }
-        public virtual List<FacturasEntity> FACTURA { get; set; }
     }
 }

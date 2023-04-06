@@ -14,11 +14,5 @@ namespace BusinessEntity
         public Nullable<int> ID_ESTADO { get; set; }
         public string CONTRASENA { get; set; }
         public string EMAIL { get; set; }
-
-        public EmpleadoEntity EMPLEADO { get; set; }
-        public EstadoEntity ESTADO { get; set; }
-        public virtual List<FacturasEntity> FACTURA { get; set; }
-
-
     }
 }

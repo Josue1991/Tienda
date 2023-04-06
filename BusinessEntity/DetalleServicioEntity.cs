@@ -13,7 +13,5 @@ namespace BusinessEntity
         public int ID_SERVICIO { get; set; }
         public Nullable<int> ID_PRODUCTO { get; set; }
         public Nullable<decimal> CANTIDAD_DETALLE { get; set; }
-        public ProductoEntity PRODUCTOS { get; set; }
-        public ServiciosEntity SERVICIO { get; set; }
     }
 }

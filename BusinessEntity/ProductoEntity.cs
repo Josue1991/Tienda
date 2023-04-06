@@ -15,8 +15,6 @@ namespace BusinessEntity
         public string DESCRIPCION_PRODUCTO { get; set; }
 
         public List<DetalleServicioEntity> DETALLESERVICIO { get; set; }
-        public EstadoEntity ESTADO { get; set; }
         public List<InventarioEntity> INVENTARIO { get; set; }
-        public UnidadesEntity UNIDADES { get; set; }
     }
 }
