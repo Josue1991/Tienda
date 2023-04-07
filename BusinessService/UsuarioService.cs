@@ -127,18 +127,23 @@ namespace BusinessService1
             return retorno;
         }
 
-        public bool Validar(UsuarioEntity login)
+        public UsuarioEntity Validar(UsuarioEntity login)
         {
-            var retorno = false;
+            var retorno = new UsuarioEntity();
 
-            var buscar = _repositorio.USUARIOS.Where(x => x.EMAIL == login.EMAIL).FirstOrDefault();
+            var buscar = _repositorio.USUARIOS.Where(x => x.EMAIL == login.EMAIL)
+                .Select(u => new UsuarioEntity
+                {
+                    ROL = u.ID_USUARIO
+                })
+                .FirstOrDefault();
             using (MD5 md5Hash = MD5.Create())
             {
                 if (buscar != null)
                 {
                     if (VerifyMd5HashWithMySecurityAlgo(md5Hash, login.CONTRASENA,buscar.CONTRASENA))
                     {
-                        retorno = true;
+                        retorno = buscar;
                     }
                 }
             }

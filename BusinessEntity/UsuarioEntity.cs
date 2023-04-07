@@ -14,5 +14,6 @@ namespace BusinessEntity
         public Nullable<int> ID_ESTADO { get; set; }
         public string CONTRASENA { get; set; }
         public string EMAIL { get; set; }
+        public int ROL { get; set; }
     }
 }

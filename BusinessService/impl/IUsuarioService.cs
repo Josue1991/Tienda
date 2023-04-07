@@ -10,7 +10,7 @@ namespace BusinessService1.impl
 {
     public interface IUsuarioService
     {
-        bool Validar(UsuarioEntity login);
+        UsuarioEntity Validar(UsuarioEntity login);
         bool CrearUsuario(EmpleadoEntity login);
         bool EditarUsuario(UsuarioEntity usuario);
         bool EliminarUsuario(UsuarioEntity usuario);

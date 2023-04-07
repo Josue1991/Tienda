@@ -36,7 +36,7 @@ namespace WebApi.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound, "Invalid client request");
             }
-            if (usuario)
+            if (usuario != null)
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Ur-565656565656565656"));
                 var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -44,12 +44,12 @@ namespace WebApi.Controllers
                     issuer: "https://localhost:5001",
                     audience: "https://localhost:5001",
                     claims: new List<Claim>(),
-                    expires: DateTime.Now.AddMinutes(5),
+                    expires: DateTime.Now.AddMinutes(60),
                     signingCredentials: signinCredentials
                 );
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokeOptions);
-                return Request.CreateResponse(new AuthenticatedResponse{ Token = tokenString });
+                return Request.CreateResponse(new AuthenticatedResponse{ Token = tokenString, Rol = usuario.ROL});
             }
             return Request.CreateResponse(HttpStatusCode.Unauthorized);
         }
@@ -61,7 +61,8 @@ namespace WebApi.Controllers
         }
         private class AuthenticatedResponse
         {
-            public string Token { get; set; }
+           public string Token { get; set; }
+           public int Rol { get; set; }
         }
     }
 }
