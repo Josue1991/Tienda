@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace WebApi.Controllers
 {
+    [RoutePrefix("api/Unidad")]
     public class UnidadController : ApiController
     {
         IUnidadService _unidadService;
@@ -18,21 +19,21 @@ namespace WebApi.Controllers
             _unidadService = unidadService;
         }
 
-        [Route("listarUnidades")]
+        [Route("ListarUnidades")]
         [HttpGet]
-        public List<UnidadesEntity> listarUnidades()
+        public List<UnidadesEntity> ListarUnidades()
         {
             return _unidadService.listarUnidades();
         }
-        [Route("insertarUnidad")]
+        [Route("InsertarUnidad")]
         [HttpPost]
-        public bool insertarUnidad([FromBody] UnidadesEntity nuevo)
+        public bool InsertarUnidad([FromBody] UnidadesEntity nuevo)
         {
             return _unidadService.crearUnidad(nuevo);
         }
-        [Route("editarUnidad")]
+        [Route("EditarUnidad")]
         [HttpPost]
-        public bool editarUnidad([FromBody] UnidadesEntity nuevo)
+        public bool EditarUnidad([FromBody] UnidadesEntity nuevo)
         {
             return _unidadService.editarUnidad(nuevo);
         }

@@ -19,7 +19,7 @@ namespace WebApi.Controllers
         }
         [Route("listar")]
         [HttpGet]
-        public List<ListaProductos> listar()
+        public List<ProductoInventarioEntity> listar()
         {
             return _productoService.listaProductos();
         }

@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace WebApi.Controllers
 {
+    [RoutePrefix("api/Servicios")]
     public class ServiciosController : ApiController
     {
         IServiciosService _serviciosService;

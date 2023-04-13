@@ -12,23 +12,18 @@ namespace DataModel
     using System;
     using System.Collections.Generic;
     
-    public partial class USUARIOS
+    public partial class ROL
     {
-        public USUARIOS()
+        public ROL()
         {
-            this.FACTURA = new HashSet<FACTURA>();
+            this.USUARIOS = new HashSet<USUARIOS>();
         }
     
-        public int ID_USUARIO { get; set; }
-        public int ID_EMPLEADO { get; set; }
-        public Nullable<int> ID_ESTADO { get; set; }
-        public string CONTRASENA { get; set; }
-        public string EMAIL { get; set; }
-        public Nullable<int> ID_ROL { get; set; }
+        public int ID_ESTADO { get; set; }
+        public int ID_ROL { get; set; }
+        public string DESCRIPCION { get; set; }
     
-        public virtual EMPLEADO EMPLEADO { get; set; }
         public virtual ESTADO ESTADO { get; set; }
-        public virtual ICollection<FACTURA> FACTURA { get; set; }
-        public virtual ROL ROL { get; set; }
+        public virtual ICollection<USUARIOS> USUARIOS { get; set; }
     }
 }

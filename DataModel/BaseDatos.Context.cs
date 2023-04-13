@@ -37,5 +37,6 @@ namespace DataModel
         public DbSet<SERVICIO> SERVICIO { get; set; }
         public DbSet<UNIDADES> UNIDADES { get; set; }
         public DbSet<USUARIOS> USUARIOS { get; set; }
+        public DbSet<ROL> ROL { get; set; }
     }
 }

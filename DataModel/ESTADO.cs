@@ -23,6 +23,7 @@ namespace DataModel
             this.INVENTARIO = new HashSet<INVENTARIO>();
             this.PRODUCTOS = new HashSet<PRODUCTOS>();
             this.USUARIOS = new HashSet<USUARIOS>();
+            this.ROL = new HashSet<ROL>();
         }
     
         public int ID_ESTADO { get; set; }
@@ -35,5 +36,6 @@ namespace DataModel
         public virtual ICollection<INVENTARIO> INVENTARIO { get; set; }
         public virtual ICollection<PRODUCTOS> PRODUCTOS { get; set; }
         public virtual ICollection<USUARIOS> USUARIOS { get; set; }
+        public virtual ICollection<ROL> ROL { get; set; }
     }
 }

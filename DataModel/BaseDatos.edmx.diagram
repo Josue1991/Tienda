@@ -34,6 +34,9 @@
         <AssociationConnector Association="base1Model.FK_FACTURA_REFERENCE_USUARIOS" />
         <AssociationConnector Association="base1Model.FK_INVENTAR_REFERENCE_PRODUCTO" />
         <AssociationConnector Association="base1Model.FK_PRODUCTO_REFERENCE_UNIDADES" />
+        <EntityTypeShape EntityType="base1Model.ROL" Width="1.5" PointX="3" PointY="13.125" />
+        <AssociationConnector Association="base1Model.FK_ROL_REFERENCE_ESTADO" />
+        <AssociationConnector Association="base1Model.FK_USUARIOS_REFERENCE_ROL" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

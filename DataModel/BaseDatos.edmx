@@ -100,6 +100,14 @@
           <Property Name="ID_UNIDAD" Type="int" />
           <Property Name="DESCRIPCION_PRODUCTO" Type="text" />
         </EntityType>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="ID_ROL" />
+          </Key>
+          <Property Name="ID_ESTADO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_ROL" Type="int" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="char" MaxLength="100" />
+        </EntityType>
         <EntityType Name="SERVICIO">
           <Key>
             <PropertyRef Name="ID_SERVICIO" />
@@ -124,8 +132,9 @@
           <Property Name="ID_USUARIO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_EMPLEADO" Type="int" Nullable="false" />
           <Property Name="ID_ESTADO" Type="int" />
-          <Property Name="CONTRASENA" Type="varchar" MaxLength="100" />
-          <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+          <Property Name="ID_ROL" Type="int" />
+          <Property Name="CONTRASENA" Type="varchar" MaxLength="10" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="20" />
         </EntityType>
         <Association Name="FK_CLIENTE_REFERENCE_ESTADO">
           <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="1" />
@@ -307,6 +316,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ROL_REFERENCE_ESTADO">
+          <End Role="ESTADO" Type="Self.ESTADO" Multiplicity="1" />
+          <End Role="ROL" Type="Self.ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="ROL">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_USUARIOS_REFERENCE_EMPLEADO">
           <End Role="EMPLEADO" Type="Self.EMPLEADO" Multiplicity="1" />
           <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
@@ -331,6 +352,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_USUARIOS_REFERENCE_ROL">
+          <End Role="ROL" Type="Self.ROL" Multiplicity="0..1" />
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="ID_ROL" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="ID_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="base1ModelStoreContainer">
           <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DETALLE_FACTURA" EntityType="Self.DETALLE_FACTURA" Schema="dbo" store:Type="Tables" />
@@ -341,6 +374,7 @@
           <EntitySet Name="FORMAPAGO" EntityType="Self.FORMAPAGO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="INVENTARIO" EntityType="Self.INVENTARIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PRODUCTOS" EntityType="Self.PRODUCTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROL" EntityType="Self.ROL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SERVICIO" EntityType="Self.SERVICIO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UNIDADES" EntityType="Self.UNIDADES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
@@ -404,12 +438,20 @@
             <End Role="UNIDADES" EntitySet="UNIDADES" />
             <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
           </AssociationSet>
+          <AssociationSet Name="FK_ROL_REFERENCE_ESTADO" Association="Self.FK_ROL_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="ROL" EntitySet="ROL" />
+          </AssociationSet>
           <AssociationSet Name="FK_USUARIOS_REFERENCE_EMPLEADO" Association="Self.FK_USUARIOS_REFERENCE_EMPLEADO">
             <End Role="EMPLEADO" EntitySet="EMPLEADO" />
             <End Role="USUARIOS" EntitySet="USUARIOS" />
           </AssociationSet>
           <AssociationSet Name="FK_USUARIOS_REFERENCE_ESTADO" Association="Self.FK_USUARIOS_REFERENCE_ESTADO">
             <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIOS_REFERENCE_ROL" Association="Self.FK_USUARIOS_REFERENCE_ROL">
+            <End Role="ROL" EntitySet="ROL" />
             <End Role="USUARIOS" EntitySet="USUARIOS" />
           </AssociationSet>
         </EntityContainer>
@@ -498,6 +540,15 @@
             <End Role="UNIDADES" EntitySet="UNIDADES" />
             <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
           </AssociationSet>
+          <EntitySet Name="ROL" EntityType="base1Model.ROL" />
+          <AssociationSet Name="FK_ROL_REFERENCE_ESTADO" Association="base1Model.FK_ROL_REFERENCE_ESTADO">
+            <End Role="ESTADO" EntitySet="ESTADO" />
+            <End Role="ROL" EntitySet="ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USUARIOS_REFERENCE_ROL" Association="base1Model.FK_USUARIOS_REFERENCE_ROL">
+            <End Role="ROL" EntitySet="ROL" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CLIENTE">
           <Key>
@@ -564,6 +615,7 @@
           <NavigationProperty Name="INVENTARIO" Relationship="base1Model.FK_INVENTAR_REFERENCE_ESTADO" FromRole="ESTADO" ToRole="INVENTARIO" />
           <NavigationProperty Name="PRODUCTOS" Relationship="base1Model.FK_PRODUCTO_REFERENCE_ESTADO" FromRole="ESTADO" ToRole="PRODUCTOS" />
           <NavigationProperty Name="USUARIOS" Relationship="base1Model.FK_USUARIOS_REFERENCE_ESTADO" FromRole="ESTADO" ToRole="USUARIOS" />
+          <NavigationProperty Name="ROL" Relationship="base1Model.FK_ROL_REFERENCE_ESTADO" FromRole="ESTADO" ToRole="ROL" />
         </EntityType>
         <EntityType Name="FACTURA">
           <Key>
@@ -649,11 +701,13 @@
           <Property Name="ID_USUARIO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_EMPLEADO" Type="Int32" Nullable="false" />
           <Property Name="ID_ESTADO" Type="Int32" />
-          <Property Name="CONTRASENA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CONTRASENA" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="EMPLEADO" Relationship="base1Model.FK_USUARIOS_REFERENCE_EMPLEADO" FromRole="USUARIOS" ToRole="EMPLEADO" />
           <NavigationProperty Name="ESTADO" Relationship="base1Model.FK_USUARIOS_REFERENCE_ESTADO" FromRole="USUARIOS" ToRole="ESTADO" />
           <NavigationProperty Name="FACTURA" Relationship="base1Model.FK_FACTURA_REFERENCE_USUARIOS" FromRole="USUARIOS" ToRole="FACTURA" />
+          <Property Name="ID_ROL" Type="Int32" />
+          <NavigationProperty Name="ROL" Relationship="base1Model.FK_USUARIOS_REFERENCE_ROL" FromRole="USUARIOS" ToRole="ROL" />
         </EntityType>
         <Association Name="FK_CLIENTE_REFERENCE_ESTADO">
           <End Type="base1Model.ESTADO" Role="ESTADO" Multiplicity="1" />
@@ -859,6 +913,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ROL">
+          <Key>
+            <PropertyRef Name="ID_ROL" />
+          </Key>
+          <Property Name="ID_ESTADO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_ROL" Type="Int32" Nullable="false" />
+          <Property Name="DESCRIPCION" Type="String" MaxLength="100" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="ESTADO" Relationship="base1Model.FK_ROL_REFERENCE_ESTADO" FromRole="ROL" ToRole="ESTADO" />
+          <NavigationProperty Name="USUARIOS" Relationship="base1Model.FK_USUARIOS_REFERENCE_ROL" FromRole="ROL" ToRole="USUARIOS" />
+        </EntityType>
+        <Association Name="FK_ROL_REFERENCE_ESTADO">
+          <End Type="base1Model.ESTADO" Role="ESTADO" Multiplicity="1" />
+          <End Type="base1Model.ROL" Role="ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESTADO">
+              <PropertyRef Name="ID_ESTADO" />
+            </Principal>
+            <Dependent Role="ROL">
+              <PropertyRef Name="ID_ESTADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USUARIOS_REFERENCE_ROL">
+          <End Type="base1Model.ROL" Role="ROL" Multiplicity="0..1" />
+          <End Type="base1Model.USUARIOS" Role="USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROL">
+              <PropertyRef Name="ID_ROL" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="ID_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -991,11 +1079,21 @@
           <EntitySetMapping Name="USUARIOS">
             <EntityTypeMapping TypeName="base1Model.USUARIOS">
               <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="CONTRASENA" ColumnName="CONTRASENA" />
                 <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
                 <ScalarProperty Name="ID_EMPLEADO" ColumnName="ID_EMPLEADO" />
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROL">
+            <EntityTypeMapping TypeName="base1Model.ROL">
+              <MappingFragment StoreEntitySet="ROL">
+                <ScalarProperty Name="DESCRIPCION" ColumnName="DESCRIPCION" />
+                <ScalarProperty Name="ID_ROL" ColumnName="ID_ROL" />
+                <ScalarProperty Name="ID_ESTADO" ColumnName="ID_ESTADO" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

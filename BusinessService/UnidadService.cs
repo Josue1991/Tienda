@@ -46,17 +46,15 @@ namespace BusinessService1
         public bool editarUnidad(UnidadesEntity objeto)
         {
             var retorno = false;
-            var elemento = _repositorio.UNIDADES.Where(x => x.DESCRIPCION_UNIDAD.Contains(objeto.DESCRIPCION_UNIDAD)).FirstOrDefault();
+            var elemento = _repositorio.UNIDADES.Where(x => x.ID_UNIDAD == objeto.ID_UNIDAD).FirstOrDefault();
             try
             {
                 if (elemento != null)
                 {
-                    using (var context = new base1Entities())
-                    {
-                        context.Entry(elemento).CurrentValues.SetValues(objeto);
-                        context.SaveChanges();
+                        _repositorio.Entry(elemento).CurrentValues.SetValues(objeto);
+                        _repositorio.SaveChanges();
                         retorno = true;
-                    }
+                    
                 }
             }
             catch (Exception ex)
