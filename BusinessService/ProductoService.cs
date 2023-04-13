@@ -145,14 +145,12 @@ namespace BusinessService1
                     item.ID_PRODUCTO = objeto.ID_PRODUCTO;
                     item.ID_ESTADO = _repositorio.ESTADO.Where(x => x.DESCRIPCION_ESTADO.Contains("ingreso")).FirstOrDefault().ID_ESTADO;
                     //Valida y actualiza el Stock si ingresa o sale productos
-                    item.STOCK_INVENTARIO =   objeto.CANTIDAD_INGRESO;
+                    item.STOCK_INVENTARIO = objeto.CANTIDAD_INGRESO != null && ultimoInv.STOCK_INVENTARIO != objeto.CANTIDAD_INGRESO ? objeto.CANTIDAD_INGRESO + ultimoInv.STOCK_INVENTARIO : objeto.CANTIDAD_INGRESO;
 
                     if (objeto.CANTIDAD_INGRESO != null)
                         item.FECHA_INGRESO = DateTime.Now;
-                    if (objeto.CANTIDAD_SALIDA != null)
-                        item.FECHA_SALIDA = DateTime.Now;
 
-                    item.CANTIDAD_INGRESO = objeto.CANTIDAD_INGRESO != null && ultimoInv.STOCK_INVENTARIO != objeto.CANTIDAD_INGRESO ? objeto.CANTIDAD_INGRESO + ultimoInv.STOCK_INVENTARIO : objeto.CANTIDAD_INGRESO;
+                    item.CANTIDAD_INGRESO = objeto.CANTIDAD_INGRESO != null ? objeto.CANTIDAD_INGRESO : objeto.CANTIDAD_INGRESO;
                     item.CANTIDAD_SALIDA = objeto.CANTIDAD_SALIDA != null ? objeto.CANTIDAD_SALIDA : 0;
 
                     item.PRECIO_UNITARIO = objeto.Precio;
