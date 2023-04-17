@@ -18,31 +18,31 @@ namespace WebApi.Controllers
             _estadoService = estadoService;
         }
 
-        [Route("listar")]
+        [Route("ListarEstados")]
         [HttpGet]
-        public List<EstadoEntity> listarTodo()
+        public List<EstadoEntity> ListarEstados()
         {
             return _estadoService.listaEstado();
         }
-        [Route("ingresarEstado")]
+        [Route("IngresarEstado")]
         [HttpPost]
-        public bool ingresarEstado([FromBody] EstadoEntity nuevo)
+        public bool IngresarEstado([FromBody] EstadoEntity nuevo)
         {
             return _estadoService.ingresarEstado(nuevo);
         }
 
-        [Route("editarEstado")]
+        [Route("EditarEstado")]
         [HttpPost]
-        public bool editarEstado(string descripcion, int idEstado)
+        public bool EditarEstado(string descripcion, int idEstado)
         {
             var editar = new EstadoEntity();
             editar.ID_ESTADO = idEstado;
             editar.DESCRIPCION_ESTADO = descripcion;
             return _estadoService.editarEstado(editar);
         }
-        [Route("eliminarEstado")]
+        [Route("EliminarEstado")]
         [HttpPost]
-        public bool eliminarEstado(int idEstado)
+        public bool EliminarEstado(int idEstado)
         {
             var editar = new EstadoEntity();
             editar.ID_ESTADO = idEstado;
